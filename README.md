@@ -1,4 +1,4 @@
-# Constellation.ai
+# Career Constellation dot AI
 
 ## Problem Statement: The Fertility Window VS Career Acceleration Dilemma
 
