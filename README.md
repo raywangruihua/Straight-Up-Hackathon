@@ -11,3 +11,8 @@ A career projection visualisation based on data (typical career progressions, ef
 ## Description
 
 Career paths are visualised as a constellation. Stars can be clicked to display information.
+
+## TODO
+
+1. Career progression predictor
+   - Tried Karrierewege, career progressions seem to be really short
