@@ -1,0 +1,12 @@
+[project]
+name = "career-predictor"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "faiss-cpu>=1.13.2",
+    "numpy>=2.4.4",
+    "pandas>=3.0.2",
+    "sentence-transformers>=5.4.1",
+]
