@@ -1,1 +1,6 @@
+# Claude settings
 .claude
+
+# Python
+__pycache__/
+.venv/

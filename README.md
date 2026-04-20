@@ -6,13 +6,15 @@ Young women face rising pressure to optimise career early while managing long-te
 
 ## Solution
 
-A career projection visualisation based on data (typical career progressions, effects due to family planning).
+A career trajectory visualisation based on data (typical career progressions, effects due to family planning).
 
 ## Description
 
 Career paths are visualised as a constellation. Stars can be clicked to display information.
 
+Career trajectory is predicted using Karrierewege.
+
 ## TODO
 
-1. Career progression predictor
-   - Tried Karrierewege, career progressions seem to be really short
+1. Map career trajectory to nodes on graph
+2. Predict life paths based on fertility window choices
