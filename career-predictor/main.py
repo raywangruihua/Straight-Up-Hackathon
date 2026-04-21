@@ -4,6 +4,9 @@ from predictor import Predictor
 
 
 def clean_labels(df: pd.DataFrame) -> list[str]:
+    """
+    Remove duplicates and clean labels.
+    """
     labels = df["preferredLabel"].dropna().tolist()
     alt_labels = df["altLabels"].dropna().tolist()
 
@@ -27,7 +30,11 @@ def predict_trajectory(
     predictor,
     start_history,
     steps=3,
-):
+) -> list[str]:
+    """
+    Iteratively predict the next role based on closest neighbours matching.
+    Appends the highest probability next role to trajectory, returns trajectory once the next role is repeated.
+    """
     history = start_history.copy()
     trajectory = start_history.copy()
 
@@ -76,7 +83,6 @@ if __name__ == "__main__":
         predictor=predictor,
         start_history=start_history,
         steps=3,
-        top_k=1,
     )
 
     print("Predicted trajectory:")
