@@ -15,10 +15,11 @@ const MAX_JOBS = 5;
 
 interface Props {
   open: boolean;
+  loading?: boolean;
   onSubmit: (history: string[]) => void;
 }
 
-export function CareerHistoryDialog({ open, onSubmit }: Props) {
+export function CareerHistoryDialog({ open, loading = false, onSubmit }: Props) {
   const [jobs, setJobs] = useState<string[]>([""]);
 
   function updateJob(index: number, value: string) {
@@ -60,8 +61,8 @@ export function CareerHistoryDialog({ open, onSubmit }: Props) {
           )}
         </div>
         <DialogFooter>
-          <Button onClick={() => onSubmit(jobs.filter((j) => j.trim()))} disabled={!canSubmit}>
-            Explore my constellation
+          <Button onClick={() => onSubmit(jobs.filter((j) => j.trim()))} disabled={!canSubmit || loading}>
+            {loading ? "Mapping your trajectory…" : "Explore my constellation"}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -1,12 +1,10 @@
-import logging
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 import pandas as pd
 from predictor import Predictor
 
 
 def clean_labels(df: pd.DataFrame) -> list[str]:
-    """
-    Remove duplicates and clean labels.
-    """
     labels = df["preferredLabel"].dropna().tolist()
     alt_labels = df["altLabels"].dropna().tolist()
 
@@ -14,7 +12,6 @@ def clean_labels(df: pd.DataFrame) -> list[str]:
         for a in alt.split("\n"):
             labels.append(a)
 
-    # strip whitespace / \r and deduplicate while preserving order
     cleaned = []
     seen = set()
     for label in labels:
@@ -26,15 +23,44 @@ def clean_labels(df: pd.DataFrame) -> list[str]:
     return cleaned
 
 
-def predict_trajectory(
-    predictor,
-    start_history,
-    steps=3,
-) -> list[str]:
-    """
-    Iteratively predict the next role based on closest neighbours matching.
-    Appends the highest probability next role to trajectory, returns trajectory once the next role is repeated.
-    """
+def build_description_lookup(df: pd.DataFrame) -> dict[str, str]:
+    lookup: dict[str, str] = {}
+    for _, row in df.iterrows():
+        description = str(row["description"]).strip() if pd.notna(row["description"]) else ""
+        preferred = str(row["preferredLabel"]).strip()
+        if preferred:
+            lookup[preferred.lower()] = description
+        if pd.notna(row["altLabels"]):
+            for alt in str(row["altLabels"]).split("\n"):
+                alt = alt.strip()
+                if alt and alt.lower() not in lookup:
+                    lookup[alt.lower()] = description
+    return lookup
+
+
+app = Flask(__name__)
+CORS(app)
+
+# Load and clean labels
+occupations_csv = pd.read_csv("occupations_en.csv")
+labels = clean_labels(occupations_csv)
+description_lookup = build_description_lookup(occupations_csv)
+
+# Load predictor
+predictor = Predictor(
+    embedding_model_path="ElenaSenger/career-path-representation-mpnet-karrierewege",
+    label_texts=labels,
+    transformation_model_path="matrix_T_karrierewege.npy",
+    transformation_method="linear",
+)
+
+
+@app.route("/predict-trajectory", methods=["POST"])
+def predict_trajectory():
+    data = request.get_json()
+    start_history: list[str] = data.get("history", [])
+    steps: int = data.get("steps", 3)
+
     history = start_history.copy()
     trajectory = start_history.copy()
 
@@ -57,34 +83,16 @@ def predict_trajectory(
         trajectory.append(next_role)
         history.append(next_role)
 
-    return trajectory
+    result = [
+        {
+            "name": role.title(),
+            "description": description_lookup.get(role.lower(), ""),
+        }
+        for role in trajectory
+    ]
+
+    return jsonify(result)
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
-    logger = logging.getLogger(__name__)
-
-    logger.info("Loading ESCO occupation strings")
-    occupations_csv = pd.read_csv("occupations_en.csv")
-    labels = clean_labels(occupations_csv)
-
-    logger.info("Initializing predictor")
-    predictor = Predictor(
-        embedding_model_path="ElenaSenger/career-path-representation-mpnet-karrierewege",
-        label_texts=labels,
-        transformation_model_path="matrix_T_karrierewege.npy",
-        transformation_method="linear",
-    )
-
-    start_history = ["software engineer"]
-    logger.info(f"Predicting 3-step trajectory for: {start_history}")
-
-    trajectory = predict_trajectory(
-        predictor=predictor,
-        start_history=start_history,
-        steps=3,
-    )
-
-    print("Predicted trajectory:")
-    for i, role in enumerate(trajectory, start=1):
-        print(f"{i}. {role}")
+    app.run(debug=True)
