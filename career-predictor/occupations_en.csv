@@ -718,14 +718,6 @@ valuer
 auction house director
 auction house administrator",,released,2024-01-25T12:13:32.274Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations","Auction house managers are responsible for the staff and activities in an auction house. Moreover, they manage the finances and marketing aspects of the auction house.",1221.1
-Occupation,http://data.europa.eu/esco/occupation/04ba4d6c-957d-417f-bf63-5b9e015a9f86,2512,software analyst,"software requirement analyst
-software requirements analyst
-application analyst
-programmer analyst
-programming analyst
-analyst of software
-software analysts",,released,2024-01-26T14:06:25.576Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
-http://data.europa.eu/esco/concept-scheme/occupations","Software analysts elicit and prioritise user requirements, produce and document software specifications, test their application, and review them during software development. They act as the interface between the software users and the software development team.",2512.2
 Occupation,http://data.europa.eu/esco/occupation/04f39bfa-bc03-4480-98bc-b18ce4fe4b4b,1211,accounting manager,"accounting office manager
 financial director
 cost accounting manager
@@ -1006,16 +998,6 @@ dipper
 coating and enamelling operator
 enamel machine apprentice",,released,2016-07-05T16:55:34Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations","Enamellers embellish metals such as gold, silver, copper, steel, cast iron or platinum by painting it. The enamel they apply, consists of coloured powdered glass.",8122.8
-Occupation,http://data.europa.eu/esco/occupation/068370e0-9c27-4814-87d0-44fbb3140815,2423,recruitment consultant,"job placement officer
-employee recruiter
-temporary labour officer
-recruiting process consultant
-recruitment officer
-head hunter
-temporary labour agent
-employment agent
-job placement consultant",,released,2024-01-16T14:18:49.499Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
-http://data.europa.eu/esco/concept-scheme/occupations","Recruitment consultants provide the suitable candidates to employers according to the specific job profile requested. They perform testing and interviewing with job seekers, shortlist few candidates to present to the employers and match candidates to appropriate jobs. Recruitment consultants maintain relationships with employers to offer their services on a more long-term basis.",2423.6
 Occupation,http://data.europa.eu/esco/occupation/068c2787-58ff-468e-bbb6-c4e5dd6ee482,2120,actuarial consultant,"actuaries
 actuarial analyst
 actuarial clerks
@@ -1703,7 +1685,7 @@ department store shop assistant
 trainee shop assistant
 hypermarket shop assistant",,released,2024-01-16T15:50:09.093Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
 http://data.europa.eu/esco/concept-scheme/member-occupations","Shop assistants work in shops where they perform assistance duties. The help shopkeepers in their daily work such as ordering and refilling of goods and stock, providing general advice to customers, selling products and maintaining the shop.",5223.6
-Occupation,http://data.europa.eu/esco/occupation/0b1d8dcb-d941-4d79-99bf-fc10c1806c43,0110,fleet commander,"deputy chief of naval staff
+Occupation,http://data.europa.eu/esco/occupation/0b1d8dcb-d941-4d79-99bf-fc10c1806c43,110,fleet commander,"deputy chief of naval staff
 navy commander
 commander of fleet
 naval commander
@@ -2516,16 +2498,6 @@ embedded systems developer
 embedded system designer
 embedded systems programmer",,released,2023-08-08T15:30:28.709Z,http://data.europa.eu/esco/regulated-professions/unregulated,Excludes people performing programming and coding activities.,,"http://data.europa.eu/esco/concept-scheme/occupations,
 http://data.europa.eu/esco/concept-scheme/member-occupations",Embedded system designers translate and design requirements and the high-level plan or architecture of an embedded control system according to technical software specifications.,2511.5
-Occupation,http://data.europa.eu/esco/occupation/106f79e4-6264-45f1-9e7a-297435cd684b,2519,software tester,"software testing specialist
-software testers
-soft tester
-unit tester
-software application tester
-module tester
-application software tester
-application tester
-tester",,released,2024-01-26T16:03:05.864Z,http://data.europa.eu/esco/regulated-professions/unregulated,Excludes people performing managerial activities.,,"http://data.europa.eu/esco/concept-scheme/occupations,
-http://data.europa.eu/esco/concept-scheme/member-occupations",Software testers perform software tests. They may also plan and design them. They may also debug and repair software although this mainly corresponds to designers and developers. They ensure that applications function properly before delivering them to internal and external clients.,2519.7
 Occupation,http://data.europa.eu/esco/occupation/107865e2-ba60-4e4f-b57d-4dd5064f517f,8151,twisting machine operator,"twister machine operator
 twister operator
 industrial twisting machine operator
@@ -2830,14 +2802,6 @@ electronic clockmaker
 clock maker
 maker of clocks",,released,2024-01-24T09:29:05.352Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations",Clock and watchmakers make mechanical or electronic clocks and watches. They use precision hand tools or automated machinery to assemble the timing devices. Clock and watchmakers may also repair clocks or watches. They can work in workshops or in factories.,7311.1
-Occupation,http://data.europa.eu/esco/occupation/1209b85e-80f1-490f-a7e1-6ad220bb956d,3119,footwear product developer,"footwear technologist
-footwear product engineer
-footwear product designer & developer
-footwear product designer and developer
-senior product developer footwear
-footwear product development engineer
-footwear product technologist",,released,2024-01-16T15:08:13.855Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
-http://data.europa.eu/esco/concept-scheme/member-occupations","Footwear product developers provide interface between design and production. They engineer the footwear prototypes previously created by designers. They select, design or re-design lasts and footwear components, make patterns for uppers, linings and bottom components, and produce technical drawings for a various range of tools, e.g. cutting dies, mould, etc. They also produce and evaluate footwear prototypes, grade and produce sizing samples, perform required tests for samples and confirm the customer’s qualitative and pricing constraints.",3119.6
 Occupation,http://data.europa.eu/esco/occupation/12142c2c-9b6f-4e4f-8153-f1a51554e4e0,1324,"import export manager in machinery, industrial equipment, ships and aircraft","trainee export manager in machinery, industrial equipment, ships and aircraft
 assistant export manager in machinery, industrial equipment, ships and aircraft
 trainee import export manager in machinery, industrial equipment, ships and aircraft
@@ -4534,7 +4498,7 @@ senior online sales channel manager
 assistant online sales channel manager
 graduate online sales channel manager",,released,2024-02-06T13:41:02.565Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations","Online sales channel managers define the sales programme for e-commerce such as goods sold via e-mail, internet and social media. They also assist in planning the online sales strategy and identifying marketing opportunities. Online sales channel managers also analyse competitor sites, review the site performance and analytics.",1221.3.2.1.4
-Occupation,http://data.europa.eu/esco/occupation/1de91afd-9da2-47ab-a7e7-19bf931709a4,0210,special forces officer,"rapid response operative
+Occupation,http://data.europa.eu/esco/occupation/1de91afd-9da2-47ab-a7e7-19bf931709a4,210,special forces officer,"rapid response operative
 counter-insurgency officer
 air force officer
 airborne operations officer
@@ -5310,12 +5274,6 @@ electronic testing and inspection engineer
 electronics tester
 electronic equipment QA inspector",,released,2024-02-09T17:29:09.009Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations",Electronic equipment inspectors check electronic equipment for any defects and malfunctions. They ensure that the equipment is correctly assembled according to specifications and national and international regulations.,7543.7.4
-Occupation,http://data.europa.eu/esco/occupation/22987b58-dbfa-4ecd-ae3f-82dd209255f6,2511,green ICT consultant,"green ICT consultants
-IT environmental consultant
-ICT environmental consultant
-green IT consultant
-ICT sustainability systems consultant",,released,2024-02-09T17:29:15.235Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
-http://data.europa.eu/esco/concept-scheme/member-occupations","Green ICT consultants advise organisations on their green ICT strategy and its implementation in the most effective and efficient manner to allow the organisation to reach their short, mid, and long term ICT environmental objectives.",2511.7
 Occupation,http://data.europa.eu/esco/occupation/22f86890-f68b-402f-a711-3e6df4913271,4131,typist,"audio typist
 braille typist
 shorthand typist
@@ -5806,7 +5764,7 @@ beamhouse department manager
 leather wet processing department supervisor
 tanyard area supervisor",,released,2024-02-09T17:29:09.009Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
 http://data.europa.eu/esco/concept-scheme/member-occupations","Leather wet processing department managers plan and organise the work, the staff and equipment of the department involving the washing of the raw hides or skins. They remove unwanted elements and they weigh and prepare them for tanning. They coordinate supply of chemicals and raw materials. They perform elaboration of manufacturing recipes and monitor quality.",1321.2.1.6.2
-Occupation,http://data.europa.eu/esco/occupation/262f21a3-ae78-46f4-a5f9-5a1f502caa90,0110,navy officer,"sub-lieutenant
+Occupation,http://data.europa.eu/esco/occupation/262f21a3-ae78-46f4-a5f9-5a1f502caa90,110,navy officer,"sub-lieutenant
 ship-of-the-line ensign
 midshipman",,released,2024-02-09T17:29:12.215Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations","Navy officers command missions during conflict and peace times, and supervise training and development of their teams. They supervise combat operations of their team, as well as aid missions, and patrolling missions to ensure peace-keeping. Often they collaborate on a regular basis with the HR department of the HQCS for the best planning of the future needs.",0110.11
@@ -7891,7 +7849,7 @@ high school RE teacher
 religious studies teacher
 RE teacher in secondary school",,released,2023-10-26T08:02:26.739Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
 http://data.europa.eu/esco/concept-scheme/member-occupations","Religious education teachers at secondary schools provide education to students, commonly children and young adults, in a secondary school setting. They are usually subject teachers, specialised and instructing in their own field of study, religion. They prepare lesson plans and materials, monitor the students' progress, assist individually when necessary, and evaluate the students' knowledge and performance on the subject of religion through assignments, tests and examinations.",2330.1.17
-Occupation,http://data.europa.eu/esco/occupation/35e67944-231e-4bc9-8c69-560f203167ff,0310,intelligence communications interceptor,"signal intelligence voice interceptor
+Occupation,http://data.europa.eu/esco/occupation/35e67944-231e-4bc9-8c69-560f203167ff,310,intelligence communications interceptor,"signal intelligence voice interceptor
 communications intelligence intercept operator
 communications interceptor
 electronic intelligence intercept operator
@@ -10493,7 +10451,7 @@ council tax officer
 tax compliance agent
 tax officer",,released,2024-01-26T14:32:25.781Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
 http://data.europa.eu/esco/concept-scheme/member-occupations","Tax compliance officers collect fees, debt, and taxes on behalf of government institutions in cities, municipalities and other jurisdictions. They perform administrative duties and communicate with other officials and institutions to ensure operations are correct and compliant with policies.",3352.1
-Occupation,http://data.europa.eu/esco/occupation/4a3f40a8-0587-494c-b8d3-7098b8c5992f,0210,army corporal,"special forces corporal
+Occupation,http://data.europa.eu/esco/occupation/4a3f40a8-0587-494c-b8d3-7098b8c5992f,210,army corporal,"special forces corporal
 regimental corporal
 corporal
 lance corporal
@@ -12028,7 +11986,7 @@ cocoa bean shelling machine operator
 coca bean winnower controller
 cocoa bean cleaning machine operator",,released,2024-01-24T09:17:08.263Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
 http://data.europa.eu/esco/concept-scheme/member-occupations","Cacao beans cleaners operate machines for the removal of foreign materials such as stones, string and dirt from cacao beans. They operate silos as to move beans from there to hoppers. They direct the cleaned beans to specified silos. They operate air-cleaning system in order to remove further foreign materials.",8160.10
-Occupation,http://data.europa.eu/esco/occupation/555235ce-8c45-409b-a6c9-83e69c2d2bce,0310,military engineer,"defence technology engineering adviser
+Occupation,http://data.europa.eu/esco/occupation/555235ce-8c45-409b-a6c9-83e69c2d2bce,310,military engineer,"defence technology engineering adviser
 ballistics engineer
 defence technology engineering consultant
 army engineer
@@ -12429,13 +12387,6 @@ pipeline field technician
 pipeline engineering technician
 subsea pipeline engineer",,released,2024-01-26T11:34:54.975Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations","Pipeline engineers design and develop the engineering aspects for the construction of pipeline infrastructures in various kinds of sites (e.g. inland, maritime). They envision and create the specifications for pumping systems and for the general transport of goods through pipelines.",2142.1.7
-Occupation,http://data.europa.eu/esco/occupation/57af9090-55b4-4911-b2d0-86db01c00b02,2514,embedded systems software developer,"embedded system software programmer
-embedded software developerl embedded systems engineer
-embedded software programmer
-embedded system software developer
-embedded systems designer
-embedded systems software developers",,released,2024-01-26T09:54:35.3Z,http://data.europa.eu/esco/regulated-professions/unregulated,Excludes people performing managerial activities.,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
-http://data.europa.eu/esco/concept-scheme/occupations","Embedded systems software developers program, implement, document and maintain software to be run on an embedded system.",2514.2.1
 Occupation,http://data.europa.eu/esco/occupation/57b459d4-655c-4053-b189-3c249ce33faf,2434,ICT business development manager,"IT commercial development manager
 IT business development manager
 ICT commercial development manager
@@ -15151,9 +15102,6 @@ communication science researcher
 communications scientist",,released,2024-01-26T12:41:08.708Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations,
 http://data.europa.eu/esco/concept-scheme/8ae4b9f3-507e-4057-a145-2f96f0132613","Communication scientists research the different aspects of the planning, collecting, creating, organizing, preserving, using, evaluating and exchanging information through verbal or non-verbal communication. They study the interactions between groups, individuals, and individuals with technologies (robots).",2632.1.1
-Occupation,http://data.europa.eu/esco/occupation/6ce3c372-408b-4c46-86d8-ad6b9255d686,1221,tourism product manager,"tourism product developer
-tourism distribution manager",,released,2024-01-25T12:14:30.484Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
-http://data.europa.eu/esco/concept-scheme/member-occupations","Tourism product managers analyse the market, research potential offers, develop products, plan and organise the distribution and marketing processes.",1221.6
 Occupation,http://data.europa.eu/esco/occupation/6ce5f7e3-a534-4aa2-ab23-255408ddb53a,2512,IoT developer,IoT software developer,,released,2023-10-24T09:07:26.122Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations","IoT developers analyse and gather data for interpreting the pattern and predicting the result. They use artificial intelligence for managing the tasks and autonomous decisions, employing machine learning algorithms to create smarter devices through data sensors. IoT developers create software for connecting objects to systems and devices, or for programming these objects to make them function on their own.",2512.9
 Occupation,http://data.europa.eu/esco/occupation/6ce86c90-36cc-43ef-a1e0-885d8151f976,3151,ship duty engineer,"maritime officer of engineering watch 
@@ -16098,32 +16046,6 @@ medical social worker
 palliative care social worker
 social worker",,released,2024-01-22T17:35:36.098Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations","Hospital social workers provide counselling to patients and their families helping them to better cope with the illness, the emotions surrounding diagnosis, and with social and financial problems. They work in cooperation with doctors, nurses and other health professionals sensitising them on the emotional aspects of a patient. They act as link between patients and medical staff. Hospital social workers also support the patients and their families with the discharge from the hospital.",2635.3.16
-Occupation,http://data.europa.eu/esco/occupation/73856e9e-eca2-44c2-bb3c-aaedf4b25979,1223,insurance product manager,"insurance sales manager
-assurance relationship manager
-assurance office manager
-insurance product development executive
-assurance account manager
-insurance lead
-insurance office manager
-assurance lead
-assurance branch manager
-insurance relationship manager
-insurance account manager
-insurance product developer
-insurance product development manager
-assurance sales manager","ensurance branch manager
-ensurance sales manager
-ensurance account manager
-ensurance relationship manager
-ensurance lead
-ensurance office manager",released,2024-01-17T15:59:51.18Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
-http://data.europa.eu/esco/concept-scheme/member-occupations","Insurance product managers set and direct the development of new insurance products, following the product lifecycle policy and the general insurance strategy. They also coordinate the marketing and sales activities related to the specific insurance products of the company. Insurance product managers inform their sales managers (or the sales department) about their newly developed insurance products.",1223.1.1
-Occupation,http://data.europa.eu/esco/occupation/73b10c97-b003-45dc-a36d-c1d585c04be1,1120,social entrepreneur,"green entrepreneur
-social business founder
-eco-entrepreneur 
-social enterprise founder
-social business venture founder",,released,2024-01-10T15:03:09.982Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
-http://data.europa.eu/esco/concept-scheme/occupations","Social entrepreneurs create innovative products or service models to tackle social and environmental challenges, pursuing through their profits a social mission that benefits a wider community or the environment. They often use a more democratic decision-making system by involving closely their stakeholders, and strive to achieve change at a systems level, by influencing policies, market evolutions and even mentalities.",1120.6
 Occupation,http://data.europa.eu/esco/occupation/73bcde7c-bc34-485d-a7af-7b94fc43f61b,7313,precious stone cutter,"faceter
 diamond cutter
 lapidarist
@@ -16489,7 +16411,7 @@ motorbike constructor
 cycle builder
 motorbike builder",,released,2024-01-16T11:24:41.691Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
 http://data.europa.eu/esco/concept-scheme/member-occupations","Motorcycle assemblers fasten motorcycle parts and components together such as frames, wheels, engines etc. To do so, they use hand tools, power tools and other equipment such as CNC machines or robots. They read technical plans and use automated assembling equipment to build motorcycles. They inspect individual parts for malfunctions and check the quality of assemblies to make sure the standards are met and the specifications respected.",8211.4
-Occupation,http://data.europa.eu/esco/occupation/7696b15a-c52e-4ac5-b38d-9eeb010c5fa3,0110,artillery officer,"munitions officer
+Occupation,http://data.europa.eu/esco/occupation/7696b15a-c52e-4ac5-b38d-9eeb010c5fa3,110,artillery officer,"munitions officer
 infantry officer
 gunner
 artillery technician",,released,2024-01-16T11:27:52.371Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
@@ -18696,7 +18618,7 @@ http://data.europa.eu/esco/concept-scheme/occupations,
 http://data.europa.eu/esco/concept-scheme/member-occupations","Mineralogists study the composition, structure and other physical aspects of the earth. They analyse various minerals and use scientific equipment to determine their structure and properties. Their work mostly focuses on the classification and identification of minerals by taking samples and performing further tests, analysis and examinations.",2114.3
 Occupation,http://data.europa.eu/esco/occupation/86c49d9c-b37d-4a14-8e9d-d0357005a48d,8113,roustabout,oil rig leasehand,,released,2024-01-23T10:08:00.249Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations","Roustabouts maintain and repair oil field equipment and machinery using hand and power tools. They do general labor, such as cleaning, digging trenches, scraping and painting rig components.",8113.6
-Occupation,http://data.europa.eu/esco/occupation/86c892cf-09a3-44c8-b9d1-814d93dbcbb4,0210,warfare specialist,"electronic warfare operator
+Occupation,http://data.europa.eu/esco/occupation/86c892cf-09a3-44c8-b9d1-814d93dbcbb4,210,warfare specialist,"electronic warfare operator
 surveillance operator
 defence specialist
 defence analyst
@@ -21591,7 +21513,7 @@ house linen store manager
 mercers shop manager
 fabric store manager",,released,2024-01-26T16:51:55.428Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations",Textile shop managers assume responsibility for activities and staff in specialised shops.,1420.4.41
-Occupation,http://data.europa.eu/esco/occupation/9bf4c8ea-e814-4772-ae31-0f29672dc497,0110,army captain,"captain armed forces
+Occupation,http://data.europa.eu/esco/occupation/9bf4c8ea-e814-4772-ae31-0f29672dc497,110,army captain,"captain armed forces
 company commander
 captain armed services
 troop commander
@@ -24459,7 +24381,7 @@ franchise sales manager
 dealership sales manager
 store manager in vehicle showroom",,released,2024-01-26T11:45:43.006Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations","Motor vehicle shop managers assume responsibility for activities and staff in a vehicle showroom. ​They manage employees, monitor the sales of the store, manage budgets and order supplies when a product is out of supply and perform administrative duties if required.",1420.4.31
-Occupation,http://data.europa.eu/esco/occupation/b223f402-0318-4e27-8691-df6e7f7295d2,0110,lieutenant,"police lieutenant
+Occupation,http://data.europa.eu/esco/occupation/b223f402-0318-4e27-8691-df6e7f7295d2,110,lieutenant,"police lieutenant
 armed forces lieutenant",,released,2024-01-16T11:28:04.343Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations","Lieutenants command troops of platoons of soldiers and lead them in training and discipline exercises. They also perform administrative duties, and function as advisers.",0110.10
 Occupation,http://data.europa.eu/esco/occupation/b2678105-9d5c-403f-b822-274aff706309,6121,sheep breeder,"shearer
@@ -25335,7 +25257,7 @@ educator of firefighters
 fire instructor
 instructor in fire academy",,released,2024-01-25T10:48:40.316Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations","Firefighter instructors train probationary, new academy recruits, or cadets, on the theory and practice necessary to become a firefighter. They conduct theoretical lectures on academic subjects such as law, basic chemistry, safety regulations, risk management, fire prevention, reading blueprints etc. Fire academy instructors also provide more hands-on, practical instruction regarding the usage of assistive equipment and rescue tools such as a fire hose, fire axe, smoke mask etc., but also heavy physical training, breathing techniques, first aid, self defense tactics and vehicle operations. They also prepare and develop lesson plans and new training programmes as new public service-related regulations and issues arise. The instructors monitor the students' progress, evaluate them individually and prepare performance evaluation reports.",2320.1.12
-Occupation,http://data.europa.eu/esco/occupation/b864c9a3-ef6e-46a0-a40c-66188f74dfa7,0110,colonel,"wing commander
+Occupation,http://data.europa.eu/esco/occupation/b864c9a3-ef6e-46a0-a40c-66188f74dfa7,110,colonel,"wing commander
 lieutenant colonel
 battalion commander",,released,2024-01-16T11:27:58.683Z,http://data.europa.eu/esco/regulated-professions/unregulated,"Includes Battalion commander. 
  Includes Wing commander.",,"http://data.europa.eu/esco/concept-scheme/occupations,
@@ -25798,7 +25720,7 @@ assistant export manager in machine tools
 graduate import manager in machine tools
 graduate import export manager in machine tools",,released,2024-01-26T11:38:39.188Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
 http://data.europa.eu/esco/concept-scheme/member-occupations","Import export managers in machine tools install and maintain procedures for cross-border business, coordinating internal and external parties.",1324.3.2.21
-Occupation,http://data.europa.eu/esco/occupation/bbd1fe06-1b55-4937-9317-fc162311ab38,0110,brigadier,"director of staff
+Occupation,http://data.europa.eu/esco/occupation/bbd1fe06-1b55-4937-9317-fc162311ab38,110,brigadier,"director of staff
 military brigadier
 army brigadier
 field officer
@@ -26112,7 +26034,7 @@ pedal harp maker
 wire harp maker
 multi-course harp builder",,released,2024-01-26T14:52:22.766Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
 http://data.europa.eu/esco/concept-scheme/member-occupations","Harp makers create and assemble parts to create harps according to specified instructions or diagrams. They sand wood, measure and attach strings, test quality of strings and inspect the finished instrument.",7312.6.2
-Occupation,http://data.europa.eu/esco/occupation/bd5a2f44-fc06-45fd-909b-3a4001c8b8a3,0310,infantry soldier,"foot soldier
+Occupation,http://data.europa.eu/esco/occupation/bd5a2f44-fc06-45fd-909b-3a4001c8b8a3,310,infantry soldier,"foot soldier
 military ranger
 infantryman
 army soldier
@@ -26339,19 +26261,6 @@ radiation protection advisor
 radiation protection team leader
 radiation protection supervisor",,released,2024-01-25T10:41:00.051Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations",Radiation protection officers are responsible for the protection from harmful effects caused by exposure to ionising radiation. They ensure compliance with legislation and regulations by enforcing safety measures. Furthermore they develop radiation protection plans in particular for nuclear plants and facilities.,2263.5
-Occupation,http://data.europa.eu/esco/occupation/bf89925d-00a1-4f94-ab3b-2148c887af33,5221,retail entrepreneur,"retail business developer
-retail business entrepreneur
-shop keeper
-retail trade entrepreneur
-retail product developer
-retailer
-retail business transformer
-shopping entrepreneur
-retail innovator
-retail experience entrepreneur
-entrepreneur
-retail sales entrepreneur",,released,2024-01-23T13:50:55.608Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
-http://data.europa.eu/esco/concept-scheme/member-occupations",Retail entrepreneurs organise business processes and concepts in his/her personally owned business.,5221.1
 Occupation,http://data.europa.eu/esco/occupation/bfc1b4e9-624c-4fba-89f2-d218bba9e257,3435,performance flying director,"flying FX director
 flying FX choreographer
 flying effects choreographer
@@ -27344,7 +27253,7 @@ security expert
 security supervisor
 security manager",,released,2024-01-16T14:40:19.46Z,http://data.europa.eu/esco/regulated-professions/unregulated,"Excludes  <a resource=""http://data.europa.eu/esco/occupation/0ce5a9f4-e00a-4bbe-b255-3c63407167a4"" typeOf=""http://data.europa.eu/esco/model#Occupation"" href=""http://data.europa.eu/esco/occupation/0ce5a9f4-e00a-4bbe-b255-3c63407167a4""><span property=""http://www.w3.org/2000/01/rdf-schema#label"" xml:lang=""en"">ICT security consultant</span></a>.",,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations","Security consultants provide security services to clients and individuals that help them preventing, planning and mitigating threats such as terrorism, espionage, theft, and violence to their organisation, including the buildings, operations, and employees. The services they provide depend on their clients' security needs and requirements and may include services such as threat analysis, security risk management, security programme development.",5414.1.8
-Occupation,http://data.europa.eu/esco/occupation/c6a26e11-bdf1-47a1-849d-fdcf819d458d,0110,armed forces officer,"major
+Occupation,http://data.europa.eu/esco/occupation/c6a26e11-bdf1-47a1-849d-fdcf819d458d,110,armed forces officer,"major
 lieutenant general
 Roal Air Force officer
 second lieutenant
@@ -27378,7 +27287,7 @@ pathologist
 medical examiner
 chief medical examiner",,released,2024-01-25T15:11:19.446Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
 http://data.europa.eu/esco/concept-scheme/member-occupations","Coroners oversee the examination of deceased individuals in order to determine the cause of death in uncommon circumstances. They ensure records are maintained of the deaths within their jurisdiction, and facilitate communication with other officials to ensure the investigation is complete.",2619.2
-Occupation,http://data.europa.eu/esco/occupation/c6e5e0e7-fa99-4f71-9fc1-9889d85282a5,0110,army general,"lieutenant general
+Occupation,http://data.europa.eu/esco/occupation/c6e5e0e7-fa99-4f71-9fc1-9889d85282a5,110,army general,"lieutenant general
 military general
 major general
 general
@@ -27752,7 +27661,7 @@ tablet making machine operator
 tablet making machine operative
 pillmaker operator",,released,2024-01-16T09:31:40.913Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
 http://data.europa.eu/esco/concept-scheme/member-occupations","Pill maker operators tend the pilling machine that create pills in various sizes and shapes. They also fill the machine with necessary materials, open valves to control the flow of the materials, and regulate the temperature of the machine.",8131.17
-Occupation,http://data.europa.eu/esco/occupation/c94dc5b2-6b23-4915-8de5-a4e6ae86d802,0310,air force pilot,"military pilot
+Occupation,http://data.europa.eu/esco/occupation/c94dc5b2-6b23-4915-8de5-a4e6ae86d802,310,air force pilot,"military pilot
 navy pilot
 armed forces pilot
 naval pilot
@@ -27932,7 +27841,7 @@ metal processing operative
 smelter operative
 scrap sorter",,released,2024-01-16T16:16:21.943Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations",Scrap metal operative cut big sheets of metal scrap in order to prepare them for being used in a smelter.,7223.18
-Occupation,http://data.europa.eu/esco/occupation/cb3b2662-774a-4e6f-841e-f120244d7031,0210,sergeant,"station sergeant
+Occupation,http://data.europa.eu/esco/occupation/cb3b2662-774a-4e6f-841e-f120244d7031,210,sergeant,"station sergeant
 drill sergeant
 police sargeant
 lance sergeant
@@ -30725,7 +30634,7 @@ industrial carpet layer
 industrial and commercial carpet layer
 commercial and industrial carpet fitter",,released,2024-01-23T11:38:59.217Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations","Carpet fitters lay rolls of carpet as a floor covering. They cut the carpet to size, prepare the surface, and put the carpet in place.",7122.1
-Occupation,http://data.europa.eu/esco/occupation/e44b2459-af5e-492d-9c57-d9c2e62944e7,0110,squadron leader,"air force commandant
+Occupation,http://data.europa.eu/esco/occupation/e44b2459-af5e-492d-9c57-d9c2e62944e7,110,squadron leader,"air force commandant
 squadron commander
 air force squadron leader
 air force squadron team leader",,released,2024-01-16T11:28:07.256Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
@@ -30755,7 +30664,7 @@ university head of school
 head of faculty
 director of faculty",,released,2024-01-26T12:44:07.372Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations",Deans of faculty lead and manage a collection of related academic departments and work with the post-secondary school principal and the different heads of department to deliver the agreed faculty and university strategic objectives. They promote the faculty in associated communities and market the faculty nationally as well as internationally. Deans of faculty also focus on achieving the faculty's financial mangement target.,1345.1.1
-Occupation,http://data.europa.eu/esco/occupation/e4c915ff-6c9c-4fa9-a8fb-09d0c67e30d4,0110,army major,"battalion commandant
+Occupation,http://data.europa.eu/esco/occupation/e4c915ff-6c9c-4fa9-a8fb-09d0c67e30d4,110,army major,"battalion commandant
 army commandant
 armed forces major
 lieutenant commander
@@ -32194,7 +32103,7 @@ soft developer
 application developer
 software developer",,released,2023-08-08T15:29:21.218Z,http://data.europa.eu/esco/regulated-professions/unregulated,Includes people performing software design.,,"http://data.europa.eu/esco/concept-scheme/occupations,
 http://data.europa.eu/esco/concept-scheme/member-occupations","Software developers implement or program all kinds of software systems based on specifications and designs by using programming languages, tools, and platforms.",2512.4
-Occupation,http://data.europa.eu/esco/occupation/f2cc5978-e45c-4f28-b859-7f89221b0505,0110,air force officer,"royal airforce officer
+Occupation,http://data.europa.eu/esco/occupation/f2cc5978-e45c-4f28-b859-7f89221b0505,110,air force officer,"royal airforce officer
 flight lieutenant
 flight officer
 air commodore
@@ -33688,7 +33597,7 @@ industrial quality control manager
 quality control industrial engineer
 industrial quality control testing supervisor",,released,2024-01-16T13:08:58.686Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/occupations,
 http://data.europa.eu/esco/concept-scheme/member-occupations","Industrial quality managers monitor and control information assets by detailing processes and procedures to ensure compliance with industrial standards. They perform audits in industrial processes, advise on preventive and corrective actions, and ensure compliance with industrial standards.",1321.2.2
-Occupation,http://data.europa.eu/esco/occupation/fdc8adfb-1807-4146-98ae-3a26fbe19996,0310,bomb disposal technician,"bomb disposal expert
+Occupation,http://data.europa.eu/esco/occupation/fdc8adfb-1807-4146-98ae-3a26fbe19996,310,bomb disposal technician,"bomb disposal expert
 bomb disposal officer
 armed forces soldier
 sapper
@@ -33930,3 +33839,41 @@ motor vehicle assembly  inspector
 truck production line worker
 motor vehicle body builder",,released,2024-01-26T14:50:33.322Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,"http://data.europa.eu/esco/concept-scheme/member-occupations,
 http://data.europa.eu/esco/concept-scheme/occupations","Motor vehicle assemblers install and put prefabricated motor vehicle parts and components together. They inspect the motor vehicles for defects, and test the assembled equipment for proper performance and conformity to quality standards.",8211.5
+Occupation,synthetic://career-path/junior-software-engineer,2512,junior software engineer,"entry level software engineer
+associate software engineer
+junior developer",,released,2026-04-22T00:00:00.000Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,synthetic://career-path/occupations,"Junior software engineers build and maintain application features under supervision while strengthening foundations in software development, debugging, testing, and collaboration.",SYN.ENG.001
+Occupation,synthetic://career-path/software-engineer,2512,software engineer,"application engineer
+software developer
+software programmer",,released,2026-04-22T00:00:00.000Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,synthetic://career-path/occupations,"Software engineers design, implement, test, and maintain software systems and services across product and platform environments.",SYN.ENG.002
+Occupation,synthetic://career-path/senior-software-engineer,2512,senior software engineer,"senior developer
+senior application engineer
+senior software developer",,released,2026-04-22T00:00:00.000Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,synthetic://career-path/occupations,"Senior software engineers lead delivery on complex systems, mentor other engineers, and make strong technical decisions across architecture, reliability, and quality.",SYN.ENG.003
+Occupation,synthetic://career-path/lead-software-engineer,2512,lead software engineer,"technical lead
+lead developer
+lead engineer",,released,2026-04-22T00:00:00.000Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,synthetic://career-path/occupations,"Lead software engineers guide engineering direction for a team, coordinate execution, and align implementation details with product goals and platform standards.",SYN.ENG.004
+Occupation,synthetic://career-path/engineering-manager,1324,engineering manager,"software engineering manager
+development manager
+engineering team lead",,released,2026-04-22T00:00:00.000Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,synthetic://career-path/occupations,"Engineering managers grow teams, manage delivery, allocate technical resources, and balance execution with people leadership.",SYN.ENG.005
+Occupation,synthetic://career-path/director-of-engineering,1324,director of engineering,"engineering director
+director engineering",,released,2026-04-22T00:00:00.000Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,synthetic://career-path/occupations,"Directors of engineering oversee multiple teams, shape organizational engineering strategy, and drive delivery quality, hiring, and cross-functional execution.",SYN.ENG.006
+Occupation,synthetic://career-path/vice-president-engineering,1324,vice president of engineering,"vp engineering
+vp of engineering
+head of engineering",,released,2026-04-22T00:00:00.000Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,synthetic://career-path/occupations,"Vice presidents of engineering own engineering execution at the organizational level, scale team structures, and align technical investment with business strategy.",SYN.ENG.007
+Occupation,synthetic://career-path/associate-product-manager,2431,associate product manager,"apm
+junior product manager",,released,2026-04-22T00:00:00.000Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,synthetic://career-path/occupations,"Associate product managers support roadmap planning, requirements gathering, experimentation, and coordination across design, engineering, and business stakeholders.",SYN.PM.001
+Occupation,synthetic://career-path/product-manager,2431,product manager,"digital product manager
+software product manager",,released,2026-04-22T00:00:00.000Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,synthetic://career-path/occupations,"Product managers define product strategy, prioritize opportunities, and coordinate cross-functional teams to deliver customer and business outcomes.",SYN.PM.002
+Occupation,synthetic://career-path/senior-product-manager,2431,senior product manager,"senior pm
+lead product manager",,released,2026-04-22T00:00:00.000Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,synthetic://career-path/occupations,"Senior product managers lead larger product areas, drive strategic decisions, and manage complex stakeholder alignment across multiple initiatives.",SYN.PM.003
+Occupation,synthetic://career-path/director-of-product,2431,director of product,"product director
+director product",,released,2026-04-22T00:00:00.000Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,synthetic://career-path/occupations,"Directors of product oversee product portfolios, manage product leaders, and connect roadmap investments to company strategy and growth goals.",SYN.PM.004
+Occupation,synthetic://career-path/junior-data-analyst,2421,junior data analyst,"entry level data analyst
+associate data analyst",,released,2026-04-22T00:00:00.000Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,synthetic://career-path/occupations,"Junior data analysts prepare reports, validate datasets, and support exploratory analysis to help teams understand operational and customer performance.",SYN.DATA.001
+Occupation,synthetic://career-path/data-analyst,2421,data analyst,"business data analyst
+analytics analyst",,released,2026-04-22T00:00:00.000Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,synthetic://career-path/occupations,"Data analysts model, query, and interpret datasets to identify trends, explain performance, and support evidence-based decisions.",SYN.DATA.002
+Occupation,synthetic://career-path/senior-data-analyst,2421,senior data analyst,"lead data analyst
+senior analytics analyst",,released,2026-04-22T00:00:00.000Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,synthetic://career-path/occupations,"Senior data analysts lead analysis for complex business questions, improve measurement frameworks, and mentor analysts on methodology and communication.",SYN.DATA.003
+Occupation,synthetic://career-path/data-scientist,2120,data scientist,"machine learning scientist
+applied data scientist",,released,2026-04-22T00:00:00.000Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,synthetic://career-path/occupations,"Data scientists develop predictive models, design experiments, and translate statistical and machine learning work into product and business decisions.",SYN.DATA.004
+Occupation,synthetic://career-path/senior-data-scientist,2120,senior data scientist,"lead data scientist
+principal data scientist",,released,2026-04-22T00:00:00.000Z,http://data.europa.eu/esco/regulated-professions/unregulated,,,synthetic://career-path/occupations,"Senior data scientists lead advanced modeling initiatives, shape data science standards, and partner across engineering and product on high-impact decisions.",SYN.DATA.005

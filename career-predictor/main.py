@@ -1,8 +1,16 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
 import pandas as pd
-from flask import Flask
+from flask import Flask, jsonify, request
+from flask_cors import CORS
 from predictor import Predictor
+
+
+DEFAULT_HOST = "127.0.0.1"
+DEFAULT_PORT = 5000
+
+
+def serialize_history(history: list[str]) -> str:
+    cleaned = [role.strip() for role in history if role and role.strip()]
+    return " -> ".join(cleaned)
 
 
 def clean_labels(df: pd.DataFrame) -> list[str]:
@@ -56,17 +64,25 @@ predictor = Predictor(
 )
 
 
+@app.route("/health", methods=["GET"])
+def health():
+    return jsonify({"status": "ok"})
+
+
 @app.route("/predict-trajectory", methods=["POST"])
 def predict_trajectory():
     data = request.get_json()
     start_history: list[str] = data.get("history", [])
     steps: int = data.get("steps", 3)
 
-    history = start_history.copy()
-    trajectory = start_history.copy()
+    trajectory = [role.strip() for role in start_history if role and role.strip()]
 
     for _ in range(steps):
-        predictions = predictor.predict(history)
+        history_query = serialize_history(trajectory)
+        if not history_query:
+            break
+
+        predictions = predictor.predict([history_query])
 
         if not predictions or not predictions[0]:
             break
@@ -82,7 +98,6 @@ def predict_trajectory():
             break
 
         trajectory.append(next_role)
-        history.append(next_role)
 
     result = [
         {
@@ -96,4 +111,4 @@ def predict_trajectory():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host=DEFAULT_HOST, port=DEFAULT_PORT, debug=True)
