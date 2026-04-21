@@ -16,10 +16,18 @@ const MAX_JOBS = 5;
 interface Props {
   open: boolean;
   loading?: boolean;
+  profileCaptured?: boolean;
   onSubmit: (history: string[]) => void;
+  onStartGuidedChat: () => void;
 }
 
-export function CareerHistoryDialog({ open, loading = false, onSubmit }: Props) {
+export function CareerHistoryDialog({
+  open,
+  loading = false,
+  profileCaptured = false,
+  onSubmit,
+  onStartGuidedChat,
+}: Props) {
   const [jobs, setJobs] = useState<string[]>([""]);
 
   function updateJob(index: number, value: string) {
@@ -44,6 +52,11 @@ export function CareerHistoryDialog({ open, loading = false, onSubmit }: Props) 
             Enter each role you&apos;ve held and we&apos;ll map your trajectory.
           </DialogDescription>
         </DialogHeader>
+        {profileCaptured && (
+          <div className="rounded-lg border border-emerald-300/30 bg-emerald-300/10 px-4 py-3 text-sm text-emerald-100">
+            Guided intake complete. Your profile is saved and ready for the next planning step.
+          </div>
+        )}
         <div className="space-y-3 py-2">
           {jobs.map((job, i) => (
             <Textarea
@@ -61,6 +74,9 @@ export function CareerHistoryDialog({ open, loading = false, onSubmit }: Props) 
           )}
         </div>
         <DialogFooter>
+          <Button variant="outline" onClick={onStartGuidedChat} disabled={loading}>
+            Guided profile chat
+          </Button>
           <Button onClick={() => onSubmit(jobs.filter((j) => j.trim()))} disabled={!canSubmit || loading}>
             {loading ? "Mapping your trajectory…" : "Explore my constellation"}
           </Button>

@@ -3,7 +3,9 @@
 import dynamic from "next/dynamic";
 import Galaxy from "@/components/Galaxy";
 import { CareerHistoryDialog } from "@/components/CareerHistoryDialog";
+import { ProfileIntakeDialog } from "@/components/ProfileIntakeDialog";
 import { useRef, useState, useCallback, useEffect, useMemo } from "react";
+import type { UserProfile } from "@/lib/chat";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
@@ -54,9 +56,10 @@ export default function Page() {
   const fgRef = useRef<any>(null);
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
   const [showBack, setShowBack] = useState(false);
-  const [dialogOpen, setDialogOpen] = useState(true);
+  const [activeDialog, setActiveDialog] = useState<"history" | "profile" | null>("history");
   const [trajectory, setTrajectory] = useState<TrajectoryItem[] | null>(null);
   const [loading, setLoading] = useState(false);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
 
   const graphData = useMemo(
     () => (trajectory ? trajectoryToGraphData(trajectory) : null),
@@ -73,7 +76,7 @@ export default function Page() {
       });
       const result: TrajectoryItem[] = await res.json();
       setTrajectory(result);
-      setDialogOpen(false);
+      setActiveDialog(null);
     } finally {
       setLoading(false);
     }
@@ -114,7 +117,21 @@ export default function Page() {
 
   return (
     <div className="dark" style={{ position: "relative", width: "100vw", height: "100vh", background: "#0a0a0a" }}>
-      <CareerHistoryDialog open={dialogOpen} loading={loading} onSubmit={handleHistorySubmit} />
+      <CareerHistoryDialog
+        open={activeDialog === "history"}
+        loading={loading}
+        profileCaptured={Boolean(profile)}
+        onSubmit={handleHistorySubmit}
+        onStartGuidedChat={() => setActiveDialog("profile")}
+      />
+      <ProfileIntakeDialog
+        open={activeDialog === "profile"}
+        onBack={() => setActiveDialog("history")}
+        onProfileCaptured={(capturedProfile) => {
+          setProfile(capturedProfile);
+          setActiveDialog("history");
+        }}
+      />
       {graphData && (
         <>
           <div style={{ position: "absolute", inset: 0 }}>
@@ -137,6 +154,14 @@ export default function Page() {
           className="absolute top-6 left-6 z-10 rounded-lg border border-border bg-popover/85 backdrop-blur-md px-4 py-2 text-sm font-medium text-popover-foreground hover:bg-popover transition-colors">
           Back to full view
         </button>
+      )}
+      {profile && (
+        <div className="absolute right-6 top-6 z-10 max-w-sm rounded-xl border border-emerald-300/25 bg-emerald-300/10 px-4 py-3 text-sm text-emerald-50 backdrop-blur-md">
+          <p className="font-medium">Profile captured</p>
+          <p className="mt-1 text-emerald-100/85">
+            Age {profile.age}, {profile.currentJob}, family intent: {profile.familyIntent}
+          </p>
+        </div>
       )}
       {selectedItem && (
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 w-[90%] max-w-[420px] rounded-xl border border-border bg-popover/85 backdrop-blur-md px-7 py-5 text-center text-popover-foreground">
