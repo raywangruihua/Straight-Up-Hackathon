@@ -1,5 +1,5 @@
-import logging
 import pandas as pd
+from flask import Flask
 from predictor import Predictor
 
 
@@ -26,14 +26,36 @@ def clean_labels(df: pd.DataFrame) -> list[str]:
     return cleaned
 
 
+app = Flask(__name__)
+
+# Load and clean labels
+occupations_csv = pd.read_csv("occupations_en.csv")
+labels = clean_labels(occupations_csv)
+
+# Initialize models
+predictor = Predictor(
+    embedding_model_path="ElenaSenger/career-path-representation-mpnet-karrierewege",
+    label_texts=labels,
+    transformation_model_path="matrix_T_karrierewege.npy",
+    transformation_method="linear",
+)
+
+
+@app.route("/predict-trajectory")
 def predict_trajectory(
-    predictor,
-    start_history,
-    steps=3,
+    start_history: list[str],
+    steps: int = 3,
 ) -> list[str]:
     """
-    Iteratively predict the next role based on closest neighbours matching.
-    Appends the highest probability next role to trajectory, returns trajectory once the next role is repeated.
+    Iteratively predict the next role based on closest neighbours search.
+    Appends the highest probability non-repeat next role to trajectory, returns trajectory once there are no more new roles to add.
+
+    Args:
+        start_history (list[str]): Career history
+        steps (int): Maximum number of predictions to make
+
+    Returns:
+        trajectory (list[str]): Career trajectory
     """
     history = start_history.copy()
     trajectory = start_history.copy()
@@ -61,30 +83,4 @@ def predict_trajectory(
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
-    logger = logging.getLogger(__name__)
-
-    logger.info("Loading ESCO occupation strings")
-    occupations_csv = pd.read_csv("occupations_en.csv")
-    labels = clean_labels(occupations_csv)
-
-    logger.info("Initializing predictor")
-    predictor = Predictor(
-        embedding_model_path="ElenaSenger/career-path-representation-mpnet-karrierewege",
-        label_texts=labels,
-        transformation_model_path="matrix_T_karrierewege.npy",
-        transformation_method="linear",
-    )
-
-    start_history = ["software engineer"]
-    logger.info(f"Predicting 3-step trajectory for: {start_history}")
-
-    trajectory = predict_trajectory(
-        predictor=predictor,
-        start_history=start_history,
-        steps=3,
-    )
-
-    print("Predicted trajectory:")
-    for i, role in enumerate(trajectory, start=1):
-        print(f"{i}. {role}")
+    app.run(debug=True)
