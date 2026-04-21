@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Galaxy from "@/components/Galaxy";
+import { CareerHistoryDialog } from "@/components/CareerHistoryDialog";
 import { useRef, useState, useCallback, useEffect } from "react";
 
 const ForceGraph3D = dynamic(() => import("react-force-graph-3d"), { ssr: false });
@@ -60,6 +61,13 @@ export default function Page() {
   const fgRef = useRef<any>(null);
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
   const [showBack, setShowBack] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(true);
+  const [careerHistory, setCareerHistory] = useState<string[] | null>(null);
+
+  function handleHistorySubmit(history: string[]) {
+    setCareerHistory(history);
+    setDialogOpen(false);
+  }
 
   useEffect(() => {
     const lockControls = setInterval(() => {
@@ -90,19 +98,24 @@ export default function Page() {
 
   return (
     <div className="dark" style={{ position: "relative", width: "100vw", height: "100vh", background: "#0a0a0a" }}>
-      <div style={{ position: "absolute", inset: 0 }}>
-        <Galaxy mouseRepulsion={false} mouseInteraction density={2} glowIntensity={0.2}
-          saturation={0} hueShift={140} twinkleIntensity={1} rotationSpeed={0}
-          repulsionStrength={2} autoCenterRepulsion={0} starSpeed={0} speed={0} />
-      </div>
-      <div style={{ position: "absolute", inset: 0 }}>
-        <ForceGraph3D ref={fgRef} graphData={graphData} nodeLabel=""
-          backgroundColor="rgba(0,0,0,0)" numDimensions={2}
-          nodeThreeObject={makeStarObject} nodeThreeObjectExtend={false}
-          linkColor={() => "#6366f1"} linkWidth={1.5}
-          linkDirectionalArrowLength={6} linkDirectionalArrowRelPos={1}
-          onNodeClick={(n: any) => zoomToNode(n.id)} onBackgroundClick={handleBackReset} />
-      </div>
+      <CareerHistoryDialog open={dialogOpen} onSubmit={handleHistorySubmit} />
+      {careerHistory && (
+        <>
+          <div style={{ position: "absolute", inset: 0 }}>
+            <Galaxy mouseRepulsion={false} mouseInteraction density={2} glowIntensity={0.2}
+              saturation={0} hueShift={140} twinkleIntensity={1} rotationSpeed={0}
+              repulsionStrength={2} autoCenterRepulsion={0} starSpeed={0} speed={0} />
+          </div>
+          <div style={{ position: "absolute", inset: 0 }}>
+            <ForceGraph3D ref={fgRef} graphData={graphData} nodeLabel=""
+              backgroundColor="rgba(0,0,0,0)" numDimensions={2}
+              nodeThreeObject={makeStarObject} nodeThreeObjectExtend={false}
+              linkColor={() => "#6366f1"} linkWidth={1.5}
+              linkDirectionalArrowLength={6} linkDirectionalArrowRelPos={1}
+              onNodeClick={(n: any) => zoomToNode(n.id)} onBackgroundClick={handleBackReset} />
+          </div>
+        </>
+      )}
       {showBack && (
         <button onClick={handleBackReset}
           className="absolute top-6 left-6 z-10 rounded-lg border border-border bg-popover/85 backdrop-blur-md px-4 py-2 text-sm font-medium text-popover-foreground hover:bg-popover transition-colors">
