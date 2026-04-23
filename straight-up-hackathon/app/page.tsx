@@ -4,33 +4,27 @@ import dynamic from "next/dynamic";
 import Galaxy from "@/components/Galaxy";
 import { CareerHistoryDialog } from "@/components/CareerHistoryDialog";
 import { ProfileIntakeDialog } from "@/components/ProfileIntakeDialog";
-import { useRef, useState, useCallback, useEffect, useMemo } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import type { UserProfile } from "@/lib/chat";
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-
 const ForceGraph3D = dynamic(() => import("react-force-graph-3d"), { ssr: false });
 
 const NODE_SPACING = 120;
 const SIDEBAR_WIDTH = 360;
 const NODE_CAMERA_Z = 350;
+const FIT_VIEW_Y = 360;
+const FIT_VIEW_Z = 1500;
+const FIT_DURATION_MS = 600;
+const ZOOM_DURATION_MS = 900;
 
 type TrajectoryItem = { name: string; description: string };
-type GraphNode = { id: string; fx: number; fy: number };
-type GraphLink = { source: string; target: string };
-type GraphData = { nodes: GraphNode[]; links: GraphLink[] };
 
-function trajectoryToGraphData(trajectory: TrajectoryItem[]): GraphData {
-  const nodes: GraphNode[] = trajectory.map((item, i) => ({
-    id: item.name,
-    fx: 0,
-    fy: i * NODE_SPACING,
-  }));
-  const links: GraphLink[] = trajectory.slice(0, -1).map((item, i) => ({
-    source: item.name,
-    target: trajectory[i + 1].name,
-  }));
-  return { nodes, links };
+function trajectoryToGraphData(trajectory: TrajectoryItem[]) {
+  return {
+    nodes: trajectory.map((item, i) => ({ id: item.name, fx: 0, fy: i * NODE_SPACING })),
+    links: trajectory.slice(0, -1).map((item, i) => ({ source: item.name, target: trajectory[i + 1].name })),
+  };
 }
 
 let cachedMaterial: any = null;
@@ -54,19 +48,42 @@ function makeStarObject() {
   return sprite;
 }
 
+const NAV_BTN_BASE = "w-full rounded-lg border border-border bg-popover/40 px-4 py-2.5 text-sm font-medium hover:bg-accent transition-colors";
+
+function NavButton({ item, label, align, onSelect }: {
+  item: TrajectoryItem | undefined;
+  label: string;
+  align: "left" | "right";
+  onSelect: (name: string) => void;
+}) {
+  const alignClass = align === "left" ? "text-left" : "text-right";
+  return (
+    <button
+      onClick={item ? () => onSelect(item.name) : undefined}
+      disabled={!item}
+      aria-hidden={!item}
+      className={`${NAV_BTN_BASE} ${alignClass} ${item ? "" : "invisible"}`}
+    >
+      <span className="block text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{label}</span>
+      <span className="block truncate text-white">{item?.name ?? ""}</span>
+    </button>
+  );
+}
+
 export default function Page() {
   const fgRef = useRef<any>(null);
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
-  const [showBack, setShowBack] = useState(false);
   const [activeDialog, setActiveDialog] = useState<"history" | "profile" | null>("history");
   const [trajectory, setTrajectory] = useState<TrajectoryItem[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [profile, setProfile] = useState<UserProfile | null>(null);
 
-  const graphData = useMemo(
-    () => (trajectory ? trajectoryToGraphData(trajectory) : null),
-    [trajectory],
-  );
+  const graphData = useMemo(() => (trajectory ? trajectoryToGraphData(trajectory) : null), [trajectory]);
+
+  const selectedIndex = trajectory?.findIndex((item) => item.name === selectedNode) ?? -1;
+  const selectedItem = selectedIndex >= 0 ? trajectory?.[selectedIndex] : undefined;
+  const prevItem = selectedIndex > 0 ? trajectory?.[selectedIndex - 1] : undefined;
+  const nextItem = selectedIndex >= 0 ? trajectory?.[selectedIndex + 1] : undefined;
 
   async function handleHistorySubmit(history: string[]) {
     setLoading(true);
@@ -76,54 +93,42 @@ export default function Page() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ history }),
       });
-      const result: TrajectoryItem[] = await res.json();
-      setTrajectory(result);
+      setTrajectory(await res.json());
       setActiveDialog(null);
     } finally {
       setLoading(false);
     }
   }
 
-  // Lock controls and zoomToFit once the graph mounts (graphData becomes available)
+  // Lock orbit controls and fit the view once the graph mounts.
   useEffect(() => {
     if (!graphData) return;
     const lockControls = setInterval(() => {
       try { fgRef.current?.controls?.().enabled === true && (fgRef.current.controls().enabled = false); } catch {}
     }, 200);
-    const initialFit = setTimeout(() => fgRef.current?.zoomToFit(600, 20), 800);
+    const initialFit = setTimeout(() => fgRef.current?.zoomToFit(FIT_DURATION_MS, 20), 800);
     return () => { clearInterval(lockControls); clearTimeout(initialFit); };
   }, [graphData]);
 
-  const zoomToNode = useCallback((id: string) => {
+  function zoomToNode(id: string) {
     const index = trajectory?.findIndex((item) => item.name === id) ?? -1;
     if (index < 0) return;
+    // Shift the camera target left so the node lands centered in the area to the right of the sidebar.
     const fov = fgRef.current?.camera()?.fov ?? 50;
     const visibleHeight = 2 * NODE_CAMERA_Z * Math.tan((fov / 2) * Math.PI / 180);
-    const worldPerPixel = visibleHeight / window.innerHeight;
-    const offsetX = -(SIDEBAR_WIDTH / 2) * worldPerPixel;
+    const offsetX = -(SIDEBAR_WIDTH / 2) * (visibleHeight / window.innerHeight);
     const y = index * NODE_SPACING;
     setSelectedNode(id);
-    setShowBack(true);
-    fgRef.current?.cameraPosition(
-      { x: offsetX, y, z: NODE_CAMERA_Z },
-      { x: offsetX, y, z: 0 },
-      900,
-    );
-  }, [trajectory]);
+    fgRef.current?.cameraPosition({ x: offsetX, y, z: NODE_CAMERA_Z }, { x: offsetX, y, z: 0 }, ZOOM_DURATION_MS);
+  }
 
-  const handleBackReset = useCallback(() => {
+  function handleBackReset() {
     setSelectedNode(null);
-    setShowBack(false);
     const fg = fgRef.current;
     if (!fg) return;
-    fg.cameraPosition({ x: 0, y: 360, z: 1500 }, { x: 0, y: 360, z: 0 }, 0);
-    setTimeout(() => fg.zoomToFit(600, 20), 50);
-  }, []);
-
-  const selectedItem = trajectory?.find((item) => item.name === selectedNode);
-  const selectedIndex = trajectory?.findIndex((item) => item.name === selectedNode) ?? -1;
-  const nextItem = selectedIndex >= 0 ? trajectory?.[selectedIndex + 1] : undefined;
-  const prevItem = selectedIndex > 0 ? trajectory?.[selectedIndex - 1] : undefined;
+    fg.cameraPosition({ x: 0, y: FIT_VIEW_Y, z: FIT_VIEW_Z }, { x: 0, y: FIT_VIEW_Y, z: 0 }, 0);
+    setTimeout(() => fg.zoomToFit(FIT_DURATION_MS, 20), 50);
+  }
 
   return (
     <div className="dark" style={{ position: "relative", width: "100vw", height: "100vh", background: "#0a0a0a" }}>
@@ -137,19 +142,16 @@ export default function Page() {
       <ProfileIntakeDialog
         open={activeDialog === "profile"}
         onBack={() => setActiveDialog("history")}
-        onProfileCaptured={(capturedProfile) => {
-          setProfile(capturedProfile);
-          setActiveDialog("history");
-        }}
+        onProfileCaptured={(p) => { setProfile(p); setActiveDialog("history"); }}
       />
       {graphData && (
         <>
-          <div style={{ position: "absolute", inset: 0 }}>
+          <div className="absolute inset-0">
             <Galaxy mouseRepulsion={false} mouseInteraction density={2} glowIntensity={0.2}
               saturation={0} hueShift={140} twinkleIntensity={1} rotationSpeed={0}
               repulsionStrength={2} autoCenterRepulsion={0} starSpeed={0} speed={0} />
           </div>
-          <div style={{ position: "absolute", inset: 0 }}>
+          <div className="absolute inset-0">
             <ForceGraph3D ref={fgRef} graphData={graphData} nodeLabel=""
               backgroundColor="rgba(0,0,0,0)" numDimensions={2}
               nodeThreeObject={makeStarObject} nodeThreeObjectExtend={false}
@@ -158,12 +160,6 @@ export default function Page() {
               onNodeClick={(n: any) => zoomToNode(n.id)} onBackgroundClick={handleBackReset} />
           </div>
         </>
-      )}
-      {showBack && !selectedItem && (
-        <button onClick={handleBackReset}
-          className="absolute top-6 left-6 z-10 rounded-lg border border-border bg-popover/85 backdrop-blur-md px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-popover transition-colors">
-          Back to full view
-        </button>
       )}
       {profile && (
         <div className="absolute right-6 top-6 z-10 max-w-sm rounded-xl border border-emerald-300/25 bg-emerald-300/10 px-4 py-3 text-sm text-emerald-50 backdrop-blur-md">
@@ -188,24 +184,8 @@ export default function Page() {
             </p>
           </div>
           <div className="flex flex-col gap-2">
-            <button
-              onClick={prevItem ? () => zoomToNode(prevItem.name) : undefined}
-              disabled={!prevItem}
-              aria-hidden={!prevItem}
-              className={`w-full rounded-lg border border-border bg-popover/40 px-4 py-2.5 text-left text-sm font-medium hover:bg-accent transition-colors ${!prevItem ? "invisible" : ""}`}
-            >
-              <span className="block text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Previous</span>
-              <span className="block truncate text-white">{prevItem?.name ?? ""}</span>
-            </button>
-            <button
-              onClick={nextItem ? () => zoomToNode(nextItem.name) : undefined}
-              disabled={!nextItem}
-              aria-hidden={!nextItem}
-              className={`w-full rounded-lg border border-border bg-popover/40 px-4 py-2.5 text-right text-sm font-medium hover:bg-accent transition-colors ${!nextItem ? "invisible" : ""}`}
-            >
-              <span className="block text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Next</span>
-              <span className="block truncate text-white">{nextItem?.name ?? ""}</span>
-            </button>
+            <NavButton item={prevItem} label="Previous" align="left" onSelect={zoomToNode} />
+            <NavButton item={nextItem} label="Next" align="right" onSelect={zoomToNode} />
           </div>
           {selectedItem.description && (
             <div className="flex-1 min-h-0 overflow-y-auto border-t border-white/10 pt-5">
