@@ -12,6 +12,8 @@ const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const ForceGraph3D = dynamic(() => import("react-force-graph-3d"), { ssr: false });
 
 const NODE_SPACING = 120;
+const SIDEBAR_WIDTH = 360;
+const NODE_CAMERA_Z = 350;
 
 type TrajectoryItem = { name: string; description: string };
 type GraphNode = { id: string; fx: number; fy: number };
@@ -95,11 +97,18 @@ export default function Page() {
   const zoomToNode = useCallback((id: string) => {
     const index = trajectory?.findIndex((item) => item.name === id) ?? -1;
     if (index < 0) return;
-    const x = 0;
+    const fov = fgRef.current?.camera()?.fov ?? 50;
+    const visibleHeight = 2 * NODE_CAMERA_Z * Math.tan((fov / 2) * Math.PI / 180);
+    const worldPerPixel = visibleHeight / window.innerHeight;
+    const offsetX = -(SIDEBAR_WIDTH / 2) * worldPerPixel;
     const y = index * NODE_SPACING;
     setSelectedNode(id);
     setShowBack(true);
-    fgRef.current?.cameraPosition({ x, y, z: 350 }, { x, y, z: 0 }, 900);
+    fgRef.current?.cameraPosition(
+      { x: offsetX, y, z: NODE_CAMERA_Z },
+      { x: offsetX, y, z: 0 },
+      900,
+    );
   }, [trajectory]);
 
   const handleBackReset = useCallback(() => {
@@ -114,6 +123,7 @@ export default function Page() {
   const selectedItem = trajectory?.find((item) => item.name === selectedNode);
   const selectedIndex = trajectory?.findIndex((item) => item.name === selectedNode) ?? -1;
   const nextItem = selectedIndex >= 0 ? trajectory?.[selectedIndex + 1] : undefined;
+  const prevItem = selectedIndex > 0 ? trajectory?.[selectedIndex - 1] : undefined;
 
   return (
     <div className="dark" style={{ position: "relative", width: "100vw", height: "100vh", background: "#0a0a0a" }}>
@@ -149,9 +159,9 @@ export default function Page() {
           </div>
         </>
       )}
-      {showBack && (
+      {showBack && !selectedItem && (
         <button onClick={handleBackReset}
-          className="absolute top-6 left-6 z-10 rounded-lg border border-border bg-popover/85 backdrop-blur-md px-4 py-2 text-sm font-medium text-popover-foreground hover:bg-popover transition-colors">
+          className="absolute top-6 left-6 z-10 rounded-lg border border-border bg-popover/85 backdrop-blur-md px-4 py-2 text-sm font-medium text-muted-foreground hover:bg-popover transition-colors">
           Back to full view
         </button>
       )}
@@ -164,20 +174,45 @@ export default function Page() {
         </div>
       )}
       {selectedItem && (
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 w-[90%] max-w-[420px] rounded-xl border border-border bg-popover/85 backdrop-blur-md px-7 py-5 text-center text-popover-foreground">
-          <h2 className="mb-2.5 text-[18px] font-semibold text-primary">{selectedItem.name}</h2>
+        <aside className="absolute left-0 top-0 z-10 flex h-full w-[360px] flex-col gap-6 border-r border-white/10 bg-gradient-to-b from-slate-950/90 via-slate-900/80 to-slate-950/90 px-7 py-8 backdrop-blur-xl">
+          <button
+            onClick={handleBackReset}
+            className="self-start rounded-lg border border-border bg-popover/40 px-3.5 py-2 text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground hover:bg-accent transition-colors"
+          >
+            Back
+          </button>
+          <div className="space-y-1.5 text-center">
+            <h2 className="text-xl font-semibold leading-tight text-primary">{selectedItem.name}</h2>
+            <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-muted-foreground">
+              <span className="text-primary/80">{selectedIndex + 1}</span> of {trajectory?.length}
+            </p>
+          </div>
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={prevItem ? () => zoomToNode(prevItem.name) : undefined}
+              disabled={!prevItem}
+              aria-hidden={!prevItem}
+              className={`w-full rounded-lg border border-border bg-popover/40 px-4 py-2.5 text-left text-sm font-medium hover:bg-accent transition-colors ${!prevItem ? "invisible" : ""}`}
+            >
+              <span className="block text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Previous</span>
+              <span className="block truncate text-white">{prevItem?.name ?? ""}</span>
+            </button>
+            <button
+              onClick={nextItem ? () => zoomToNode(nextItem.name) : undefined}
+              disabled={!nextItem}
+              aria-hidden={!nextItem}
+              className={`w-full rounded-lg border border-border bg-popover/40 px-4 py-2.5 text-right text-sm font-medium hover:bg-accent transition-colors ${!nextItem ? "invisible" : ""}`}
+            >
+              <span className="block text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Next</span>
+              <span className="block truncate text-white">{nextItem?.name ?? ""}</span>
+            </button>
+          </div>
           {selectedItem.description && (
-            <p className="text-sm leading-relaxed text-muted-foreground">{selectedItem.description}</p>
-          )}
-          {nextItem && (
-            <div className="mt-4">
-              <button onClick={() => zoomToNode(nextItem.name)}
-                className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium hover:bg-accent transition-colors">
-                {nextItem.name}
-              </button>
+            <div className="flex-1 min-h-0 overflow-y-auto border-t border-white/10 pt-5">
+              <p className="text-sm leading-relaxed text-foreground/85">{selectedItem.description}</p>
             </div>
           )}
-        </div>
+        </aside>
       )}
     </div>
   );

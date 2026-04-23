@@ -76,6 +76,7 @@ def predict_trajectory():
     steps: int = data.get("steps", 3)
 
     trajectory = [role.strip() for role in start_history if role and role.strip()]
+    seen_lower = {role.lower() for role in trajectory}
 
     for _ in range(steps):
         history_query = serialize_history(trajectory)
@@ -90,7 +91,7 @@ def predict_trajectory():
         next_role = None
         for candidate in predictions[0]:
             candidate = candidate.strip()
-            if candidate not in trajectory:
+            if candidate.lower() not in seen_lower:
                 next_role = candidate
                 break
 
@@ -98,6 +99,7 @@ def predict_trajectory():
             break
 
         trajectory.append(next_role)
+        seen_lower.add(next_role.lower())
 
     result = [
         {

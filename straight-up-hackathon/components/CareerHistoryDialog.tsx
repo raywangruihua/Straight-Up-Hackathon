@@ -61,7 +61,7 @@ export function CareerHistoryDialog({
           {jobs.map((job, i) => (
             <Textarea
               key={i}
-              placeholder={`e.g. Senior Engineer`}
+              placeholder={`e.g Software Engineer`}
               rows={2}
               value={job}
               onChange={(e) => updateJob(i, e.target.value)}
