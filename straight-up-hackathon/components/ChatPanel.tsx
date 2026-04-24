@@ -82,13 +82,13 @@ export default function ChatPanel({
 
   return (
     <aside
-      className={`relative z-10 flex w-full flex-col overflow-hidden rounded-[28px] border border-white/15 bg-black/55 backdrop-blur-xl ${
+      className={`relative z-10 flex w-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-slate-950/80 backdrop-blur-xl ${
         compact ? "h-[70vh] max-w-none" : "h-[calc(100vh-3rem)] max-w-md"
       }`}
     >
       <div className="border-b border-white/10 px-5 py-4">
-        <p className="text-xs font-medium tracking-[0.25em] text-sky-200/70 uppercase">
-          Guided Intake
+        <p className="text-[11px] font-medium tracking-[0.22em] text-sky-200/70 uppercase">
+          Guided intake
         </p>
         <h2 className="mt-2 text-2xl font-semibold text-white">
           Career planning chat
@@ -109,10 +109,10 @@ export default function ChatPanel({
           return (
             <div
               key={`${message.role}-${index}`}
-              className={`max-w-[90%] rounded-3xl px-4 py-3 text-sm leading-6 shadow-lg ${
+              className={`max-w-[90%] rounded-2xl px-4 py-3 text-sm leading-6 shadow-lg ${
                 isAssistant
-                  ? "rounded-bl-md bg-white/12 text-slate-100"
-                  : "ml-auto rounded-br-md bg-sky-400/90 text-slate-950"
+                  ? "rounded-bl-md bg-white/10 text-slate-100"
+                  : "ml-auto rounded-br-md bg-sky-300 text-slate-950"
               }`}
             >
               {message.content}
@@ -121,7 +121,7 @@ export default function ChatPanel({
         })}
 
         {isSubmitting ? (
-          <div className="max-w-[90%] rounded-3xl rounded-bl-md bg-white/12 px-4 py-3 text-sm text-slate-300">
+          <div className="max-w-[90%] rounded-2xl rounded-bl-md bg-white/10 px-4 py-3 text-sm text-slate-300">
             Thinking...
           </div>
         ) : null}
@@ -129,7 +129,7 @@ export default function ChatPanel({
 
       <div className="border-t border-white/10 px-5 py-4">
         {profile ? (
-          <div className="mb-4 rounded-2xl border border-emerald-300/20 bg-emerald-300/10 px-4 py-3 text-sm text-emerald-50">
+          <div className="mb-4 rounded-xl border border-emerald-300/25 bg-emerald-300/10 px-4 py-3 text-sm text-emerald-50">
             <p className="font-medium">Structured profile captured</p>
             <p className="mt-1 text-emerald-100/85">
               Age {profile.age}, {profile.currentJob}, family intent:{" "}
@@ -139,7 +139,7 @@ export default function ChatPanel({
         ) : null}
 
         {error ? (
-          <div className="mb-4 rounded-2xl border border-rose-300/25 bg-rose-400/10 px-4 py-3 text-sm text-rose-100">
+          <div className="mb-4 rounded-xl border border-rose-300/25 bg-rose-400/10 px-4 py-3 text-sm text-rose-100">
             {error}
           </div>
         ) : null}
@@ -149,12 +149,12 @@ export default function ChatPanel({
             value={input}
             onChange={(event) => setInput(event.target.value)}
             placeholder="Reply here..."
-            className="min-h-24 flex-1 resize-none rounded-2xl border border-white/10 bg-white/8 px-4 py-3 text-sm text-white outline-none placeholder:text-slate-400 focus:border-sky-300/45"
+            className="min-h-24 flex-1 resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-slate-400 focus:border-sky-300/50"
           />
           <button
             type="submit"
             disabled={isSubmitting || input.trim().length === 0}
-            className="self-end rounded-2xl bg-sky-300 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-200 disabled:cursor-not-allowed disabled:bg-slate-600 disabled:text-slate-300"
+            className="h-10 self-end rounded-xl bg-sky-300 px-4 text-sm font-semibold text-slate-950 transition hover:bg-sky-200 disabled:cursor-not-allowed disabled:bg-slate-600 disabled:text-slate-300"
           >
             Send
           </button>

@@ -244,8 +244,10 @@ function configureNavigationControls(
   }
 }
 
+const EYEBROW_CLASS =
+  "text-[11px] font-medium tracking-[0.22em] text-sky-200/70 uppercase"
 const NODE_BUTTON_BASE =
-  "w-full rounded-lg border border-border bg-popover/40 px-4 py-2.5 text-left text-sm font-medium hover:bg-accent transition-colors"
+  "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-left text-sm font-medium hover:bg-white/10 transition-colors"
 
 function NodeButton({
   item,
@@ -261,9 +263,11 @@ function NodeButton({
   return (
     <button
       onClick={() => onSelect(item.id)}
-      className={`${NODE_BUTTON_BASE} ${highlighted ? "border-emerald-300/40 bg-emerald-300/10" : ""}`}
+      className={`${NODE_BUTTON_BASE} ${highlighted ? "border-sky-300/25 bg-sky-300/10 hover:bg-sky-300/15" : ""}`}
     >
-      <span className="block text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+      <span
+        className={`block text-[11px] font-medium tracking-[0.22em] uppercase ${highlighted ? "text-sky-100/75" : "text-sky-200/70"}`}
+      >
         {eyebrow}
       </span>
       <span className="block truncate text-white">{item.name}</span>
@@ -772,38 +776,25 @@ export default function Page() {
         <aside className="absolute top-0 left-0 z-10 flex h-full w-[380px] flex-col gap-6 border-r border-white/10 bg-gradient-to-b from-slate-950/90 via-slate-900/80 to-slate-950/90 px-7 py-8 backdrop-blur-xl">
           <button
             onClick={handleBackReset}
-            className="self-start rounded-lg border border-border bg-popover/40 px-3.5 py-2 text-[10px] font-medium tracking-[0.2em] text-muted-foreground uppercase transition-colors hover:bg-accent"
+            className="h-9 self-start rounded-xl border border-white/15 bg-white/5 px-3.5 text-[11px] font-medium tracking-[0.22em] text-slate-200 uppercase transition-colors hover:bg-white/10"
           >
             Reset view
           </button>
           <div className="space-y-1.5 text-center">
-            <p className="text-[11px] font-medium tracking-[0.22em] text-muted-foreground uppercase">
+            <p className={EYEBROW_CLASS}>
               {selectedItem.kind === "planning"
                 ? "Planning branch"
                 : selectedItem.kind === "decision"
                   ? "Decision node"
                   : "Career node"}
             </p>
-            <h2 className="text-xl leading-tight font-semibold text-primary">
+            <h2 className="text-xl leading-tight font-semibold text-white">
               {selectedItem.name}
             </h2>
           </div>
-          {parentItem && (
-            <div className="space-y-2 rounded-xl border border-emerald-300/20 bg-emerald-300/10 px-4 py-4">
-              <p className="text-[10px] tracking-[0.2em] text-emerald-100/80 uppercase">
-                Previous step
-              </p>
-              <NodeButton
-                item={parentItem}
-                eyebrow="Go back"
-                onSelect={zoomToNode}
-                highlighted
-              />
-            </div>
-          )}
           {childItems.length > 0 && (
-            <div className="space-y-2">
-              <p className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase">
+            <div className="space-y-2 rounded-xl border border-sky-300/25 bg-sky-300/10 px-4 py-4">
+              <p className="text-[11px] font-medium tracking-[0.22em] text-sky-100/75 uppercase">
                 Options from here
               </p>
               {childItems.map((item) => (
@@ -818,6 +809,7 @@ export default function Page() {
                         : "Role option"
                   }
                   onSelect={zoomToNode}
+                  highlighted
                 />
               ))}
             </div>
@@ -825,29 +817,44 @@ export default function Page() {
           {selectedItem &&
             selectedItem.kind !== "planning" &&
             childItems.length === 0 && (
-              <div className="space-y-3 rounded-lg border border-white/10 bg-white/5 px-4 py-4">
-                <p className="text-sm text-slate-300">
-                  {isExpandingSelectedNode
-                    ? "Exploring next moves from this node..."
-                    : selectedItem.kind === "decision"
-                      ? "Reveal the concrete branches behind this decision."
-                      : "Reveal the next explicit decisions from this point."}
+              <div className="space-y-2 rounded-xl border border-sky-300/25 bg-sky-300/10 px-4 py-4">
+                <p className="text-[11px] font-medium tracking-[0.22em] text-sky-100/75 uppercase">
+                  Next step
                 </p>
-                {!isExpandingSelectedNode && (
-                  <button
-                    onClick={() => void ensureNodeExpanded(selectedItem.id)}
-                    className="w-full rounded-lg border border-border bg-popover/40 px-4 py-2.5 text-sm font-medium transition-colors hover:bg-accent"
-                  >
-                    {selectedItem.kind === "decision"
-                      ? "Reveal branches from this decision"
-                      : "Reveal next decisions"}
-                  </button>
-                )}
+                <button
+                  onClick={() => void ensureNodeExpanded(selectedItem.id)}
+                  disabled={isExpandingSelectedNode}
+                  className={`${NODE_BUTTON_BASE} border-sky-300/25 bg-sky-300/10 hover:bg-sky-300/15 disabled:cursor-not-allowed disabled:opacity-70`}
+                >
+                  <span className="block text-[11px] font-medium tracking-[0.22em] text-sky-100/75 uppercase">
+                    {isExpandingSelectedNode ? "Loading" : "Reveal"}
+                  </span>
+                  <span className="block text-white">
+                    {isExpandingSelectedNode
+                      ? "Exploring next moves from this node..."
+                      : selectedItem.kind === "decision"
+                        ? "Reveal branches from this decision"
+                        : "Reveal next decisions"}
+                  </span>
+                </button>
               </div>
             )}
+          {parentItem && (
+            <div className="space-y-2 rounded-xl border border-sky-300/25 bg-sky-300/10 px-4 py-4">
+              <p className="text-[11px] font-medium tracking-[0.22em] text-sky-100/75 uppercase">
+                Previous step
+              </p>
+              <NodeButton
+                item={parentItem}
+                eyebrow="Go back"
+                onSelect={zoomToNode}
+                highlighted
+              />
+            </div>
+          )}
           {selectedItem.description && (
             <div className="min-h-0 flex-1 overflow-y-auto border-t border-white/10 pt-5">
-              <p className="text-sm leading-relaxed text-foreground/85">
+              <p className="text-sm leading-relaxed text-slate-300">
                 {selectedItem.description}
               </p>
             </div>

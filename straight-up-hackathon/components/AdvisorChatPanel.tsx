@@ -169,10 +169,10 @@ export default function AdvisorChatPanel({
   }
 
   return (
-    <aside className="absolute top-0 right-0 bottom-0 z-10 flex h-full w-full max-w-[420px] flex-col overflow-hidden border-l border-white/10 bg-slate-950/88 backdrop-blur-xl md:w-[420px]">
+    <aside className="absolute top-0 right-0 bottom-0 z-10 flex h-full w-full max-w-[420px] flex-col overflow-hidden border-l border-white/10 bg-slate-950/85 backdrop-blur-xl md:w-[420px]">
       <div className="border-b border-white/10 px-5 py-4">
-        <p className="text-xs font-medium tracking-[0.25em] text-sky-200/70 uppercase">
-          Advisor Chat
+        <p className="text-[11px] font-medium tracking-[0.22em] text-sky-200/70 uppercase">
+          Advisor chat
         </p>
         <h2 className="mt-2 text-2xl font-semibold text-white">
           Grounded constellation guide
@@ -182,8 +182,8 @@ export default function AdvisorChatPanel({
           evidence-backed planning factors to keep in view.
         </p>
         {selectedNode ? (
-          <div className="mt-4 rounded-2xl border border-sky-300/20 bg-sky-300/10 px-4 py-3 text-sm text-sky-50">
-            <p className="text-[10px] tracking-[0.2em] text-sky-100/75 uppercase">
+          <div className="mt-4 rounded-xl border border-sky-300/25 bg-sky-300/10 px-4 py-3 text-sm text-sky-50">
+            <p className="text-[11px] font-medium tracking-[0.22em] text-sky-100/75 uppercase">
               Selected node
             </p>
             <p className="mt-1 font-medium">{selectedNode.name}</p>
@@ -218,15 +218,15 @@ export default function AdvisorChatPanel({
               className={isAssistant ? "" : "flex justify-end"}
             >
               <div
-                className={`max-w-[92%] rounded-3xl px-4 py-3 text-sm leading-6 shadow-lg ${
+                className={`max-w-[92%] rounded-2xl px-4 py-3 text-sm leading-6 shadow-lg ${
                   isAssistant
-                    ? "rounded-bl-md bg-white/12 text-slate-100"
+                    ? "rounded-bl-md bg-white/10 text-slate-100"
                     : "rounded-br-md bg-sky-300 text-slate-950"
                 }`}
               >
                 <p>{message.content}</p>
                 {isAssistant ? (
-                  <p className="mt-3 text-[10px] font-medium tracking-[0.18em] text-sky-100/70 uppercase">
+                  <p className="mt-3 text-[10px] font-medium tracking-[0.22em] text-sky-100/70 uppercase">
                     {GROUNDING_LABELS[groundingStatus]}
                   </p>
                 ) : null}
@@ -237,9 +237,9 @@ export default function AdvisorChatPanel({
                     {message.citations.map((citation) => (
                       <div
                         key={citation.id}
-                        className="rounded-2xl border border-white/10 bg-slate-950/45 px-3 py-3"
+                        className="rounded-xl border border-white/10 bg-slate-950/45 px-3 py-3"
                       >
-                        <p className="text-[10px] tracking-[0.18em] text-sky-100/70 uppercase">
+                        <p className="text-[10px] font-medium tracking-[0.22em] text-sky-100/70 uppercase">
                           {citation.sourceType === "curated"
                             ? "Curated source"
                             : "MOM PDF snippet"}
@@ -266,7 +266,7 @@ export default function AdvisorChatPanel({
         })}
 
         {isSubmitting ? (
-          <div className="max-w-[92%] rounded-3xl rounded-bl-md bg-white/12 px-4 py-3 text-sm text-slate-300">
+          <div className="max-w-[92%] rounded-2xl rounded-bl-md bg-white/10 px-4 py-3 text-sm text-slate-300">
             Reviewing your question against the local evidence...
           </div>
         ) : null}
@@ -274,7 +274,7 @@ export default function AdvisorChatPanel({
 
       <div className="border-t border-white/10 px-5 py-4">
         {error ? (
-          <div className="mb-4 rounded-2xl border border-rose-300/25 bg-rose-400/10 px-4 py-3 text-sm text-rose-100">
+          <div className="mb-4 rounded-xl border border-rose-300/25 bg-rose-400/10 px-4 py-3 text-sm text-rose-100">
             {error}
           </div>
         ) : null}
@@ -284,12 +284,12 @@ export default function AdvisorChatPanel({
             value={input}
             onChange={(event) => setInput(event.target.value)}
             placeholder="Ask about this path, a node, or the planning evidence..."
-            className="min-h-24 flex-1 resize-none rounded-2xl border border-white/10 bg-white/8 px-4 py-3 text-sm text-white outline-none placeholder:text-slate-400 focus:border-sky-300/45"
+            className="min-h-24 flex-1 resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white outline-none placeholder:text-slate-400 focus:border-sky-300/50"
           />
           <button
             type="submit"
             disabled={isSubmitting || input.trim().length === 0 || !trajectory}
-            className="self-end rounded-2xl bg-sky-300 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-sky-200 disabled:cursor-not-allowed disabled:bg-slate-600 disabled:text-slate-300"
+            className="h-10 self-end rounded-xl bg-sky-300 px-4 text-sm font-semibold text-slate-950 transition hover:bg-sky-200 disabled:cursor-not-allowed disabled:bg-slate-600 disabled:text-slate-300"
           >
             Send
           </button>
