@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import {
   Dialog,
@@ -6,17 +6,17 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from "@/components/ui/dialog"
 
-import ChatPanel from "@/components/ChatPanel";
-import { Button } from "@/components/ui/button";
-import type { UserProfile } from "@/lib/chat";
+import ChatPanel from "@/components/ChatPanel"
+import { Button } from "@/components/ui/button"
+import type { UserProfile } from "@/lib/chat"
 
 type ProfileIntakeDialogProps = {
-  open: boolean;
-  onBack: () => void;
-  onProfileCaptured: (profile: UserProfile) => void;
-};
+  open: boolean
+  onBack: () => void
+  onProfileCaptured: (profile: UserProfile) => void
+}
 
 export function ProfileIntakeDialog({
   open,
@@ -32,11 +32,12 @@ export function ProfileIntakeDialog({
         <DialogHeader className="border-b border-white/10 px-6 py-5">
           <DialogTitle>Guided profile intake</DialogTitle>
           <DialogDescription className="text-slate-300">
-            Use the chat to capture age, current job, and family intent in a structured profile.
+            Use the chat to capture age, current job, and family intent in a
+            structured profile.
           </DialogDescription>
         </DialogHeader>
 
-        <div className="px-6 pb-6 pt-4">
+        <div className="px-6 pt-4 pb-6">
           <div className="mb-4 flex justify-end">
             <Button variant="outline" onClick={onBack}>
               Back to career history
@@ -46,12 +47,12 @@ export function ProfileIntakeDialog({
             compact
             onProfileChange={(profile) => {
               if (profile) {
-                onProfileCaptured(profile);
+                onProfileCaptured(profile)
               }
             }}
           />
         </div>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

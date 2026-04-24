@@ -1,0 +1,150 @@
+[
+  {
+    "sourceId": "singstat-births-fertility-latest",
+    "title": "Births and Fertility - Latest Data",
+    "publisher": "Singapore Department of Statistics",
+    "url": "https://www.singstat.gov.sg/find-data/search-by-theme/population/births-and-fertility/latest-data",
+    "category": "fertility_baseline",
+    "allowedUsage": [
+      "fertility_baseline",
+      "timeline_calibration"
+    ],
+    "refreshCadence": "quarterly",
+    "lastCheckedDate": "2026-04-24",
+    "fetchStatus": "http_error",
+    "httpStatus": 404,
+    "fetchError": "HTTP Error 404: Not Found"
+  },
+  {
+    "sourceId": "lifesg-baby-bonus-2026",
+    "title": "Baby Bonus Scheme",
+    "publisher": "LifeSG",
+    "url": "https://www.life.gov.sg/family-parenting/when-your-child-is-born/baby-bonus-scheme",
+    "category": "benefits",
+    "allowedUsage": [
+      "financial_support_context",
+      "family_benefits_timing"
+    ],
+    "refreshCadence": "quarterly",
+    "lastCheckedDate": "2026-04-24",
+    "fetchStatus": "ok",
+    "httpStatus": 200,
+    "resolvedUrl": "https://www.life.gov.sg/family-parenting/when-your-child-is-born/baby-bonus-scheme",
+    "pageTitle": "Baby Bonus Scheme | LifeSG - When Your Child Is Born"
+  },
+  {
+    "sourceId": "mom-maternity-leave-2026",
+    "title": "Maternity leave",
+    "publisher": "Ministry of Manpower",
+    "url": "https://www.mom.gov.sg/employment-practices/leave/maternity-leave",
+    "category": "benefits",
+    "allowedUsage": [
+      "leave_planning",
+      "work_life_context"
+    ],
+    "refreshCadence": "quarterly",
+    "lastCheckedDate": "2026-04-24",
+    "fetchStatus": "ok",
+    "httpStatus": 200,
+    "resolvedUrl": "https://www.mom.gov.sg/employment-practices/leave/maternity-leave",
+    "pageTitle": "Maternity leave"
+  },
+  {
+    "sourceId": "mom-paternity-leave-2026",
+    "title": "Paternity leave",
+    "publisher": "Ministry of Manpower",
+    "url": "https://www.mom.gov.sg/employment-practices/leave/paternity-leave",
+    "category": "benefits",
+    "allowedUsage": [
+      "leave_planning",
+      "partner_support_context"
+    ],
+    "refreshCadence": "quarterly",
+    "lastCheckedDate": "2026-04-24",
+    "fetchStatus": "ok",
+    "httpStatus": 200,
+    "resolvedUrl": "https://www.mom.gov.sg/employment-practices/leave/paternity-leave",
+    "pageTitle": "Paternity leave"
+  },
+  {
+    "sourceId": "mom-shared-parental-leave-2026",
+    "title": "Shared parental leave",
+    "publisher": "Ministry of Manpower",
+    "url": "https://www.mom.gov.sg/employment-practices/leave/shared-parental-leave",
+    "category": "benefits",
+    "allowedUsage": [
+      "leave_planning",
+      "partner_support_context"
+    ],
+    "refreshCadence": "quarterly",
+    "lastCheckedDate": "2026-04-24",
+    "fetchStatus": "ok",
+    "httpStatus": 200,
+    "resolvedUrl": "https://www.mom.gov.sg/employment-practices/leave/shared-parental-leave",
+    "pageTitle": "Shared parental leave"
+  },
+  {
+    "sourceId": "ecda-infant-childcare-subsidy-2026",
+    "title": "Overview of the infant and childcare subsidy scheme",
+    "publisher": "Early Childhood Development Agency",
+    "url": "https://www.ecda.gov.sg/parents/preschool-subsidies/infant-and-childcare-subsidy-scheme/overview",
+    "category": "childcare",
+    "allowedUsage": [
+      "childcare_cost_context",
+      "support_planning"
+    ],
+    "refreshCadence": "quarterly",
+    "lastCheckedDate": "2026-04-24",
+    "fetchStatus": "ok",
+    "httpStatus": 200,
+    "resolvedUrl": "https://www.ecda.gov.sg/parents/preschool-subsidies/infant-and-childcare-subsidy-scheme/overview",
+    "pageTitle": "ECDA | Overview of the infant and childcare subsidy scheme"
+  },
+  {
+    "sourceId": "ecda-kifas-2026",
+    "title": "Overview of the Kindergarten Fee Assistance Scheme (KiFAS)",
+    "publisher": "Early Childhood Development Agency",
+    "url": "https://www.ecda.gov.sg/parents/preschool-subsidies/kindergarten-fee-assistance-scheme-%28kifas%29/overview",
+    "category": "childcare",
+    "allowedUsage": [
+      "childcare_cost_context",
+      "support_planning"
+    ],
+    "refreshCadence": "quarterly",
+    "lastCheckedDate": "2026-04-24",
+    "fetchStatus": "ok",
+    "httpStatus": 200,
+    "resolvedUrl": "https://www.ecda.gov.sg/parents/preschool-subsidies/kindergarten-fee-assistance-scheme-%28kifas%29/overview",
+    "pageTitle": "ECDA | Overview of the Kindergarten Fee Assistance Scheme (KiFAS)"
+  },
+  {
+    "sourceId": "hdb-bto-2025-planned-supply",
+    "title": "25,000 New Flats will be Launched in 2025",
+    "publisher": "Housing & Development Board",
+    "url": "https://www.hdb.gov.sg/about-us/news-and-publications/press-releases/25000-New-Flats-will-be-Launched-in-2025",
+    "category": "housing",
+    "allowedUsage": [
+      "housing_timing_context"
+    ],
+    "refreshCadence": "semiannual",
+    "lastCheckedDate": "2026-04-24",
+    "fetchStatus": "http_error",
+    "httpStatus": 404,
+    "fetchError": "HTTP Error 404: Not Found"
+  },
+  {
+    "sourceId": "hdb-bto-july-2025",
+    "title": "HDB Launches 10,209 Flats in the July 2025 BTO and SBF Sales Exercises",
+    "publisher": "Housing & Development Board",
+    "url": "https://www.hdb.gov.sg/about-us/news-and-publications/press-releases/hdb-launches-10209-flats-in-the-july-2025-bto-and-sbf-sales-exercises",
+    "category": "housing",
+    "allowedUsage": [
+      "housing_timing_context"
+    ],
+    "refreshCadence": "semiannual",
+    "lastCheckedDate": "2026-04-24",
+    "fetchStatus": "http_error",
+    "httpStatus": 404,
+    "fetchError": "HTTP Error 404: Not Found"
+  }
+]

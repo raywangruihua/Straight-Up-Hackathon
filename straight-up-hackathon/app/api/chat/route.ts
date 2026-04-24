@@ -1,9 +1,9 @@
-import OpenAI from "openai";
-import { NextResponse } from "next/server";
+import OpenAI from "openai"
+import { NextResponse } from "next/server"
 
-import type { ChatMessage, UserProfile } from "@/lib/chat";
+import type { ChatMessage, UserProfile } from "@/lib/chat"
 
-const MODEL = process.env.OPENAI_MODEL ?? "gpt-4o-mini";
+const MODEL = process.env.OPENAI_MODEL ?? "gpt-4o-mini"
 
 const systemPrompt = `
 You are a supportive planning assistant for a life-design product.
@@ -16,7 +16,7 @@ Your goals:
 - Avoid fear-based framing.
 - Once all three fields are known, return complete=true and a fully populated profile.
 - If any field is still missing, return complete=false and profile=null.
-`;
+`
 
 const responseSchema = {
   name: "chat_intake_response",
@@ -64,52 +64,52 @@ const responseSchema = {
     required: ["reply", "complete", "profile"],
     additionalProperties: false,
   },
-} as const;
+} as const
 
 type OpenAIChatResponse = {
-  reply: string;
-  complete: boolean;
-  profile: UserProfile | null;
-};
+  reply: string
+  complete: boolean
+  profile: UserProfile | null
+}
 
 function getOpenAIClient() {
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = process.env.OPENAI_API_KEY
 
   if (!apiKey) {
-    return null;
+    return null
   }
 
-  return new OpenAI({ apiKey });
+  return new OpenAI({ apiKey })
 }
 
 function isChatMessage(value: unknown): value is ChatMessage {
   if (!value || typeof value !== "object") {
-    return false;
+    return false
   }
 
-  const candidate = value as Record<string, unknown>;
+  const candidate = value as Record<string, unknown>
 
   return (
     (candidate.role === "user" || candidate.role === "assistant") &&
     typeof candidate.content === "string"
-  );
+  )
 }
 
 function sanitizeMessages(payload: unknown) {
   if (!Array.isArray(payload)) {
-    return [];
+    return []
   }
 
-  return payload.filter(isChatMessage).slice(-12);
+  return payload.filter(isChatMessage).slice(-12)
 }
 
 function isProfile(value: unknown): value is UserProfile {
   if (!value || typeof value !== "object") {
-    return false;
+    return false
   }
 
-  const candidate = value as Record<string, unknown>;
-  const familyIntent = candidate.familyIntent;
+  const candidate = value as Record<string, unknown>
+  const familyIntent = candidate.familyIntent
 
   return (
     typeof candidate.age === "number" &&
@@ -117,29 +117,32 @@ function isProfile(value: unknown): value is UserProfile {
     typeof candidate.currentJob === "string" &&
     typeof familyIntent === "string" &&
     ["soon", "later", "unsure", "no"].includes(familyIntent)
-  );
+  )
 }
 
 function isOpenAIChatResponse(value: unknown): value is OpenAIChatResponse {
   if (!value || typeof value !== "object") {
-    return false;
+    return false
   }
 
-  const candidate = value as Record<string, unknown>;
+  const candidate = value as Record<string, unknown>
 
-  if (typeof candidate.reply !== "string" || typeof candidate.complete !== "boolean") {
-    return false;
+  if (
+    typeof candidate.reply !== "string" ||
+    typeof candidate.complete !== "boolean"
+  ) {
+    return false
   }
 
   if (candidate.profile === null) {
-    return true;
+    return true
   }
 
-  return isProfile(candidate.profile);
+  return isProfile(candidate.profile)
 }
 
 export async function POST(request: Request) {
-  const openai = getOpenAIClient();
+  const openai = getOpenAIClient()
 
   if (!openai) {
     return NextResponse.json(
@@ -147,15 +150,18 @@ export async function POST(request: Request) {
         error:
           "OPENAI_API_KEY is missing. Add it to straight-up-hackathon/.env.local to enable chat.",
       },
-      { status: 500 },
-    );
+      { status: 500 }
+    )
   }
 
-  const body = (await request.json()) as { messages?: unknown };
-  const messages = sanitizeMessages(body.messages);
+  const body = (await request.json()) as { messages?: unknown }
+  const messages = sanitizeMessages(body.messages)
 
   if (messages.length === 0) {
-    return NextResponse.json({ error: "At least one message is required." }, { status: 400 });
+    return NextResponse.json(
+      { error: "At least one message is required." },
+      { status: 400 }
+    )
   }
 
   const response = await openai.responses.create({
@@ -171,31 +177,31 @@ export async function POST(request: Request) {
         ...responseSchema,
       },
     },
-  });
+  })
 
-  let parsed: unknown;
+  let parsed: unknown
 
   try {
-    parsed = JSON.parse(response.output_text);
+    parsed = JSON.parse(response.output_text)
   } catch {
     return NextResponse.json(
       { error: "OpenAI returned an unreadable response. Try again." },
-      { status: 502 },
-    );
+      { status: 502 }
+    )
   }
 
   if (!isOpenAIChatResponse(parsed)) {
     return NextResponse.json(
       { error: "OpenAI returned an invalid profile payload. Try again." },
-      { status: 502 },
-    );
+      { status: 502 }
+    )
   }
 
-  const finalProfile = parsed.complete && parsed.profile ? parsed.profile : null;
+  const finalProfile = parsed.complete && parsed.profile ? parsed.profile : null
 
   return NextResponse.json({
     reply: parsed.reply,
     profile: finalProfile,
     complete: parsed.complete,
-  });
+  })
 }

@@ -1,70 +1,82 @@
-"use client";
+"use client"
 
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react"
 
-import type { ChatMessage, ChatResponse, UserProfile } from "@/lib/chat";
+import type { ChatMessage, ChatResponse, UserProfile } from "@/lib/chat"
 
 type ChatPanelProps = {
-  compact?: boolean;
-  onProfileChange: (profile: UserProfile | null) => void;
-};
+  compact?: boolean
+  onProfileChange: (profile: UserProfile | null) => void
+}
 
 const INITIAL_MESSAGE: ChatMessage = {
   role: "assistant",
   content:
     "Tell me a bit about where you are now, and I will help map a realistic path. I will ask about your age, current job, and whether starting a family soon is on your mind.",
-};
+}
 
-export default function ChatPanel({ compact = false, onProfileChange }: ChatPanelProps) {
-  const [messages, setMessages] = useState<ChatMessage[]>([INITIAL_MESSAGE]);
-  const [input, setInput] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [profile, setProfile] = useState<UserProfile | null>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
+export default function ChatPanel({
+  compact = false,
+  onProfileChange,
+}: ChatPanelProps) {
+  const [messages, setMessages] = useState<ChatMessage[]>([INITIAL_MESSAGE])
+  const [input, setInput] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [profile, setProfile] = useState<UserProfile | null>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
-  }, [messages, isSubmitting]);
+    scrollRef.current?.scrollTo({
+      top: scrollRef.current.scrollHeight,
+      behavior: "smooth",
+    })
+  }, [messages, isSubmitting])
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const value = input.trim();
+    event.preventDefault()
+    const value = input.trim()
 
     if (!value || isSubmitting) {
-      return;
+      return
     }
 
-    const nextMessages = [...messages, { role: "user" as const, content: value }];
-    setMessages(nextMessages);
-    setInput("");
-    setIsSubmitting(true);
-    setError(null);
+    const nextMessages = [
+      ...messages,
+      { role: "user" as const, content: value },
+    ]
+    setMessages(nextMessages)
+    setInput("")
+    setIsSubmitting(true)
+    setError(null)
 
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: nextMessages }),
-      });
+      })
 
-      const data = (await response.json()) as ChatResponse | { error: string };
+      const data = (await response.json()) as ChatResponse | { error: string }
 
       if (!response.ok || "error" in data) {
-        throw new Error("error" in data ? data.error : "Chat request failed.");
+        throw new Error("error" in data ? data.error : "Chat request failed.")
       }
 
-      setMessages((current) => [...current, { role: "assistant", content: data.reply }]);
-      setProfile(data.profile);
-      onProfileChange(data.profile);
+      setMessages((current) => [
+        ...current,
+        { role: "assistant", content: data.reply },
+      ])
+      setProfile(data.profile)
+      onProfileChange(data.profile)
     } catch (caughtError) {
       const message =
         caughtError instanceof Error
           ? caughtError.message
-          : "Something went wrong while contacting OpenAI.";
-      setError(message);
+          : "Something went wrong while contacting OpenAI."
+      setError(message)
     } finally {
-      setIsSubmitting(false);
+      setIsSubmitting(false)
     }
   }
 
@@ -75,19 +87,24 @@ export default function ChatPanel({ compact = false, onProfileChange }: ChatPane
       }`}
     >
       <div className="border-b border-white/10 px-5 py-4">
-        <p className="text-xs font-medium uppercase tracking-[0.25em] text-sky-200/70">
+        <p className="text-xs font-medium tracking-[0.25em] text-sky-200/70 uppercase">
           Guided Intake
         </p>
-        <h2 className="mt-2 text-2xl font-semibold text-white">Career planning chat</h2>
+        <h2 className="mt-2 text-2xl font-semibold text-white">
+          Career planning chat
+        </h2>
         <p className="mt-2 text-sm leading-6 text-slate-300">
-          OpenAI collects the profile first, then we can hand the structured result into the
-          constellation builder.
+          OpenAI collects the profile first, then we can hand the structured
+          result into the constellation builder.
         </p>
       </div>
 
-      <div ref={scrollRef} className="flex-1 space-y-4 overflow-y-auto px-5 py-5">
+      <div
+        ref={scrollRef}
+        className="flex-1 space-y-4 overflow-y-auto px-5 py-5"
+      >
         {messages.map((message, index) => {
-          const isAssistant = message.role === "assistant";
+          const isAssistant = message.role === "assistant"
 
           return (
             <div
@@ -100,7 +117,7 @@ export default function ChatPanel({ compact = false, onProfileChange }: ChatPane
             >
               {message.content}
             </div>
-          );
+          )
         })}
 
         {isSubmitting ? (
@@ -115,7 +132,8 @@ export default function ChatPanel({ compact = false, onProfileChange }: ChatPane
           <div className="mb-4 rounded-2xl border border-emerald-300/20 bg-emerald-300/10 px-4 py-3 text-sm text-emerald-50">
             <p className="font-medium">Structured profile captured</p>
             <p className="mt-1 text-emerald-100/85">
-              Age {profile.age}, {profile.currentJob}, family intent: {profile.familyIntent}
+              Age {profile.age}, {profile.currentJob}, family intent:{" "}
+              {profile.familyIntent}
             </p>
           </div>
         ) : null}
@@ -143,5 +161,5 @@ export default function ChatPanel({ compact = false, onProfileChange }: ChatPane
         </form>
       </div>
     </aside>
-  );
+  )
 }

@@ -1,0 +1,67 @@
+[
+  {
+    "id": "benefits-baby-bonus-first-child-2025plus",
+    "sourceId": "lifesg-baby-bonus-2026",
+    "title": "Baby Bonus Scheme",
+    "publishDate": "2026-04-07",
+    "theme": "financial_support_context",
+    "claim": "For Singapore citizen first children born on or after 18 February 2025, the total Baby Bonus amount is $20,000.",
+    "summary": "The current Baby Bonus package for a first child combines Baby Bonus Cash Gift, CDA First Step Grant, and CDA co-matching support.",
+    "pageRef": "scheme table, first child",
+    "allowedUsage": "financial_support_context",
+    "confidence": 0.95,
+    "relevance": "Use when adding budgeting, benefits-enrolment, or Child Development Account setup milestones."
+  },
+  {
+    "id": "benefits-baby-bonus-third-child-large-family",
+    "sourceId": "lifesg-baby-bonus-2026",
+    "title": "Baby Bonus Scheme",
+    "publishDate": "2026-04-07",
+    "theme": "financial_support_context",
+    "claim": "Third and subsequent Singapore citizen children born from 18 February 2025 receive a higher CDA First Step Grant of $10,000 under the Large Families Scheme.",
+    "summary": "The Baby Bonus scheme includes additional support for larger families, which can matter when users are planning beyond a first child even if the first model only renders first-child detail.",
+    "pageRef": "scheme note on Large Families Scheme",
+    "allowedUsage": "financial_support_context",
+    "confidence": 0.9,
+    "relevance": "Store as future-ready context; keep first-child timelines focused unless family-size logic is explicitly enabled."
+  },
+  {
+    "id": "benefits-maternity-leave-hub",
+    "sourceId": "mom-maternity-leave-2026",
+    "title": "Maternity leave",
+    "publishDate": "2026-01-05",
+    "theme": "leave_planning",
+    "claim": "MOM's maternity leave guidance directs working mothers to eligibility, planning, and calculation flows for Government-Paid Maternity Leave or Employment Act coverage.",
+    "summary": "Maternity leave planning is a formal milestone area with defined eligibility and planning requirements, and should appear in the timeline as an administrative preparation step.",
+    "pageRef": "main leave guidance page",
+    "allowedUsage": "leave_planning",
+    "confidence": 0.82,
+    "relevance": "Use to justify maternity-leave planning nodes even when a detailed entitlement calculation is deferred."
+  },
+  {
+    "id": "benefits-paternity-leave-4-weeks-2025plus",
+    "sourceId": "mom-paternity-leave-2026",
+    "title": "Paternity leave",
+    "publishDate": "2026-02-05",
+    "theme": "partner_support_context",
+    "claim": "If a child's date of birth, estimated delivery date, or formal intent to adopt is on or after 1 April 2025, eligible fathers are entitled to 4 weeks of Government-Paid Paternity Leave.",
+    "summary": "Singapore's current paternity-leave rules create a concrete partner-support planning lever that the timeline can reflect before birth and during early caregiving.",
+    "pageRef": "entitlement section",
+    "allowedUsage": "partner_support_context",
+    "confidence": 0.96,
+    "relevance": "Use when generating partner-alignment and leave-coordination milestones."
+  },
+  {
+    "id": "benefits-shared-parental-leave-2025-2026",
+    "sourceId": "mom-shared-parental-leave-2026",
+    "title": "Shared parental leave",
+    "publishDate": "2026",
+    "theme": "partner_support_context",
+    "claim": "Eligible working parents are entitled to 6 weeks of shared parental leave for children born from 1 April 2025 to 31 March 2026, and 10 weeks from 1 April 2026 onward.",
+    "summary": "The phased increase in shared parental leave can affect return-to-work planning, partner coverage, and the timing of early childcare arrangements.",
+    "pageRef": "entitlement section",
+    "allowedUsage": "partner_support_context",
+    "confidence": 0.95,
+    "relevance": "Use when the projected target age maps to a likely birth date in or after these policy windows."
+  }
+]

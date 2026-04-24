@@ -1,0 +1,54 @@
+[
+  {
+    "id": "fertility-2025-total-live-births",
+    "sourceId": "singstat-births-fertility-latest",
+    "title": "Births and Fertility - Latest Data",
+    "publishDate": "2026",
+    "theme": "fertility_baseline",
+    "claim": "Singapore recorded 30,004 total live-births in 2025, down 11.0% year over year.",
+    "summary": "Recent births data indicates a lower-birth environment, which supports using a planning-oriented rather than one-size-fits-all family timeline.",
+    "pageRef": "latest-data table, total live-births row",
+    "allowedUsage": "fertility_baseline",
+    "confidence": 0.96,
+    "relevance": "Use as population context for the timeline summary and baseline framing, not for individual prediction."
+  },
+  {
+    "id": "fertility-2025-resident-live-births",
+    "sourceId": "singstat-births-fertility-latest",
+    "title": "Births and Fertility - Latest Data",
+    "publishDate": "2026",
+    "theme": "fertility_baseline",
+    "claim": "Resident live-births were 27,529 in 2025, down 10.6% from 2024.",
+    "summary": "Resident births remain a useful local baseline for Singapore-specific planning context.",
+    "pageRef": "latest-data table, resident live-births row",
+    "allowedUsage": "fertility_baseline",
+    "confidence": 0.96,
+    "relevance": "Use when emphasizing that the planner is grounded in Singapore household context."
+  },
+  {
+    "id": "fertility-2025-crude-birth-rate",
+    "sourceId": "singstat-births-fertility-latest",
+    "title": "Births and Fertility - Latest Data",
+    "publishDate": "2026",
+    "theme": "fertility_baseline",
+    "claim": "The resident crude birth rate was 6.5 per 1,000 residents in 2025, versus 7.4 in 2024.",
+    "summary": "The latest resident birth-rate figures provide a macro backdrop for family-planning decisions in Singapore.",
+    "pageRef": "latest-data table, resident crude birth rate row",
+    "allowedUsage": "fertility_baseline",
+    "confidence": 0.94,
+    "relevance": "Use sparingly as top-level context, not to alter any individual milestone directly."
+  },
+  {
+    "id": "fertility-2025-tfr",
+    "sourceId": "singstat-births-fertility-latest",
+    "title": "Births and Fertility - Latest Data",
+    "publishDate": "2026",
+    "theme": "fertility_baseline",
+    "claim": "Singapore's resident total fertility rate was 0.87 in 2025, compared with 0.97 in 2024.",
+    "summary": "The latest fertility rate underscores a broad national context in which long-term family planning is increasingly deliberate.",
+    "pageRef": "latest-data table, resident total fertility rate row",
+    "allowedUsage": "fertility_baseline",
+    "confidence": 0.96,
+    "relevance": "Use in the overview or evidence summary, not as a personalized scoring input."
+  }
+]

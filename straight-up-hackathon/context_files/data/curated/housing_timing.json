@@ -1,0 +1,41 @@
+[
+  {
+    "id": "housing-2025-bto-supply",
+    "sourceId": "hdb-bto-2025-planned-supply",
+    "title": "25,000 New Flats will be Launched in 2025",
+    "publishDate": "2025-01-16",
+    "theme": "housing_timing_context",
+    "claim": "HDB announced more than 25,000 new flats in 2025, including about 19,600 BTO flats and more than 5,500 SBF flats.",
+    "summary": "Public housing supply remains a major family-planning factor, and a broad supply pipeline can shape how early a household starts housing milestones.",
+    "pageRef": "main announcement",
+    "allowedUsage": "housing_timing_context",
+    "confidence": 0.9,
+    "relevance": "Use when the planner includes housing preparation or HFE/BTO milestones."
+  },
+  {
+    "id": "housing-2025-swt-commitment",
+    "sourceId": "hdb-bto-2025-planned-supply",
+    "title": "25,000 New Flats will be Launched in 2025",
+    "publishDate": "2025-01-16",
+    "theme": "housing_timing_context",
+    "claim": "Of the 19,600 BTO flats planned in 2025, about 3,800 are Shorter Waiting Time flats with waiting times of less than 3 years.",
+    "summary": "Shorter waiting time supply is relevant when aligning housing readiness with a planned first-child timeline.",
+    "pageRef": "shorter waiting time section",
+    "allowedUsage": "housing_timing_context",
+    "confidence": 0.92,
+    "relevance": "Use to justify earlier housing decision nodes when the target childbearing window is narrow."
+  },
+  {
+    "id": "housing-july-2025-swt-and-3-year-projects",
+    "sourceId": "hdb-bto-july-2025",
+    "title": "HDB Launches 10,209 Flats in the July 2025 BTO and SBF Sales Exercises",
+    "publishDate": "2025-07-23",
+    "theme": "housing_timing_context",
+    "claim": "In the July 2025 launch, 1,396 flats had waiting times of less than 3 years and another 775 flats had a waiting time of 3 years.",
+    "summary": "Official HDB launch data shows that sub-3-year and roughly 3-year waiting-time projects are available, which can be used to model housing lead time in a family timeline.",
+    "pageRef": "waiting-time paragraph",
+    "allowedUsage": "housing_timing_context",
+    "confidence": 0.93,
+    "relevance": "Use when turning housing readiness into an age-based prerequisite milestone."
+  }
+]

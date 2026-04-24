@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
 CURATED_DIR = DATA_DIR / "curated"
 DISTILLED_DIR = DATA_DIR / "distilled"
+SNIPPETS_DIR = DATA_DIR / "snippets"
 RUN_DATE = datetime.now(UTC).date().isoformat()
 USER_AGENT = "Mozilla/5.0 (compatible; CodexCurator/1.0)"
 DEFAULT_MODEL = "gpt-5.2"
@@ -752,6 +753,44 @@ def infer_source_metadata(pdf_path: Path) -> dict[str, str]:
     }
 
 
+def build_pdf_snippet_records(
+    pdf_dir: Path,
+    pattern: str,
+    max_pages: int | None,
+    pages_per_chunk: int,
+    max_chars: int,
+    limit: int | None,
+) -> list[dict[str, Any]]:
+    pdf_paths = sorted(pdf_dir.glob(pattern))
+    if limit is not None:
+        pdf_paths = pdf_paths[:limit]
+
+    if not pdf_paths:
+        raise FileNotFoundError(f"No PDFs matched pattern '{pattern}' in {pdf_dir}")
+
+    snippets: list[dict[str, Any]] = []
+    for pdf_path in pdf_paths:
+        metadata = infer_source_metadata(pdf_path)
+        pages = extract_pdf_pages(pdf_path, max_pages)
+        chunks = chunk_pages(pages, pages_per_chunk, max_chars)
+
+        for index, chunk in enumerate(chunks, start=1):
+            snippets.append(
+                {
+                    "id": f"{metadata['sourceId']}-chunk-{index}",
+                    "sourceId": metadata["sourceId"],
+                    "title": metadata["title"],
+                    "publishDate": metadata["publishDate"],
+                    "pageRef": chunk["pageRef"],
+                    "sourceFile": pdf_path.name,
+                    "text": chunk["text"],
+                    "sourceType": "mom_pdf",
+                }
+            )
+
+    return snippets
+
+
 def run_refresh() -> None:
     registry = enrich_source_registry()
     write_json(DATA_DIR / "source_registry.json", registry)
@@ -763,6 +802,24 @@ def run_refresh() -> None:
     print(
         f"Wrote curated data files to {DATA_DIR} and refreshed {ok_count}/{len(registry)} source checks."
     )
+
+
+def run_export_snippets(args: argparse.Namespace) -> None:
+    pdf_dir = Path(args.pdf_dir).resolve()
+    if not pdf_dir.exists():
+        raise FileNotFoundError(f"PDF directory does not exist: {pdf_dir}")
+
+    snippets = build_pdf_snippet_records(
+        pdf_dir=pdf_dir,
+        pattern=args.pattern,
+        max_pages=args.max_pages,
+        pages_per_chunk=args.pages_per_chunk,
+        max_chars=args.max_chars,
+        limit=args.limit,
+    )
+    output_path = Path(args.output).resolve()
+    write_json(output_path, snippets)
+    print(f"Wrote {len(snippets)} searchable PDF snippets to {output_path}.")
 
 
 def run_distill(args: argparse.Namespace) -> None:
@@ -847,6 +904,50 @@ def build_parser() -> argparse.ArgumentParser:
 
     subparsers.add_parser("refresh-curated", help="Refresh curated source registry and static JSON.")
 
+    snippets = subparsers.add_parser(
+        "export-pdf-snippets",
+        help="Extract searchable PDF snippets without model distillation.",
+    )
+    snippets.add_argument(
+        "--pdf-dir",
+        default=str(ROOT / "mom_pdfs"),
+        help="Directory containing source PDFs.",
+    )
+    snippets.add_argument(
+        "--pattern",
+        default="*.pdf",
+        help="Glob pattern for PDF selection.",
+    )
+    snippets.add_argument(
+        "--output",
+        default=str(SNIPPETS_DIR / "mom_pdf_snippets.json"),
+        help="Output JSON path for searchable snippet records.",
+    )
+    snippets.add_argument(
+        "--pages-per-chunk",
+        type=int,
+        default=2,
+        help="How many PDF pages to include per snippet record.",
+    )
+    snippets.add_argument(
+        "--max-pages",
+        type=int,
+        default=6,
+        help="Maximum pages to extract from each PDF.",
+    )
+    snippets.add_argument(
+        "--max-chars",
+        type=int,
+        default=6000,
+        help="Maximum normalized characters per page before chunk assembly.",
+    )
+    snippets.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Optional cap on number of PDFs to process.",
+    )
+
     distill = subparsers.add_parser("distill-pdfs", help="Extract PDF text and distill evidence records.")
     distill.add_argument(
         "--pdf-dir",
@@ -908,6 +1009,9 @@ def main() -> None:
     command = args.command or "refresh-curated"
     if command == "refresh-curated":
         run_refresh()
+        return
+    if command == "export-pdf-snippets":
+        run_export_snippets(args)
         return
     if command == "distill-pdfs":
         run_distill(args)

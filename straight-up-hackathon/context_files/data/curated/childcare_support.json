@@ -1,0 +1,80 @@
+[
+  {
+    "id": "childcare-basic-subsidy-infant-care",
+    "sourceId": "ecda-infant-childcare-subsidy-2026",
+    "title": "Overview of the infant and childcare subsidy scheme",
+    "publishDate": "2026-04-02",
+    "theme": "childcare_cost_context",
+    "claim": "All Singapore citizen children enrolled in an ECDA-licensed infant or childcare centre are eligible for a Basic Subsidy; for full-day infant care the basic subsidy is $600.",
+    "summary": "Infant-care affordability can be anchored with a known baseline subsidy, making early-childcare budgeting a concrete planning milestone.",
+    "pageRef": "subsidy amount table, infant care",
+    "allowedUsage": "childcare_cost_context",
+    "confidence": 0.95,
+    "relevance": "Use when building post-birth childcare budgeting or return-to-work nodes."
+  },
+  {
+    "id": "childcare-basic-subsidy-childcare",
+    "sourceId": "ecda-infant-childcare-subsidy-2026",
+    "title": "Overview of the infant and childcare subsidy scheme",
+    "publishDate": "2026-04-02",
+    "theme": "childcare_cost_context",
+    "claim": "For full-day childcare, the basic subsidy is $300, with additional subsidy of up to $467 for eligible working main applicants.",
+    "summary": "Childcare costs after infancy can be materially offset by subsidies, which supports adding cost-planning milestones rather than assuming full sticker fees.",
+    "pageRef": "subsidy amount table, childcare",
+    "allowedUsage": "childcare_cost_context",
+    "confidence": 0.95,
+    "relevance": "Use in childcare budget and support-planning milestones after the infant-care stage."
+  },
+  {
+    "id": "childcare-additional-subsidy-income-threshold",
+    "sourceId": "ecda-infant-childcare-subsidy-2026",
+    "title": "Overview of the infant and childcare subsidy scheme",
+    "publishDate": "2026-04-02",
+    "theme": "support_planning",
+    "claim": "Additional subsidy is available when the main applicant is working and household income is $12,000 or below, or per capita income is $3,000 or below for larger households.",
+    "summary": "Eligibility for means-tested preschool subsidies depends on both work status and income thresholds, which can alter near-term financial readiness milestones.",
+    "pageRef": "additional subsidy eligibility section",
+    "allowedUsage": "support_planning",
+    "confidence": 0.94,
+    "relevance": "Use when timeline recommendations need to surface subsidy checks or affordability review milestones."
+  },
+  {
+    "id": "childcare-full-childcare-subsidy-nonworking-lower-income",
+    "sourceId": "ecda-infant-childcare-subsidy-2026",
+    "title": "Overview of the infant and childcare subsidy scheme",
+    "publishDate": "2026-04-02",
+    "theme": "support_planning",
+    "claim": "From 9 December 2024, families with an SC child in childcare and household income of $6,000 and below, or PCI of $1,500 and below, can qualify for full childcare subsidies regardless of the main applicant's working status.",
+    "summary": "Lower-income households may still access full childcare subsidies even when the main applicant is not working, which changes support planning for some family setups.",
+    "pageRef": "non-working main subsidy applicant section",
+    "allowedUsage": "support_planning",
+    "confidence": 0.93,
+    "relevance": "Use to avoid overly rigid work-status assumptions in affordability planning."
+  },
+  {
+    "id": "kindergarten-kifas-income-threshold",
+    "sourceId": "ecda-kifas-2026",
+    "title": "Overview of the Kindergarten Fee Assistance Scheme (KiFAS)",
+    "publishDate": "2026-04-02",
+    "theme": "childcare_cost_context",
+    "claim": "Singapore citizen children enrolled at Anchor Operator or MOE kindergartens are eligible for means-tested KiFAS subsidies if household income is $12,000 or less, or PCI is $3,000 or less for households with 5 or more members.",
+    "summary": "Kindergarten affordability support extends beyond infant care and childcare, making later-child planning costs more predictable.",
+    "pageRef": "KiFAS overview section",
+    "allowedUsage": "childcare_cost_context",
+    "confidence": 0.94,
+    "relevance": "Use for later family-cost milestones that extend beyond infancy."
+  },
+  {
+    "id": "kindergarten-kifas-max-example",
+    "sourceId": "ecda-kifas-2026",
+    "title": "Overview of the Kindergarten Fee Assistance Scheme (KiFAS)",
+    "publishDate": "2026-04-02",
+    "theme": "childcare_cost_context",
+    "claim": "The KiFAS example on the official page shows a maximum subsidy of $163 for an AOP kindergarten child in a household with gross monthly income of $3,000 and below, subject to a $1 minimum co-payment.",
+    "summary": "The official KiFAS example provides a concrete affordability reference point that can be turned into a later-childcare planning node.",
+    "pageRef": "minimum co-payment example",
+    "allowedUsage": "childcare_cost_context",
+    "confidence": 0.87,
+    "relevance": "Use as a reference example rather than a universal assumption."
+  }
+]
