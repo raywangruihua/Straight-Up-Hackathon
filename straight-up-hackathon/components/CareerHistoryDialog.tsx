@@ -12,15 +12,15 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { FAMILY_INTENT_LABELS, FAMILY_INTENT_VALUES } from "@/lib/chat"
 import type { FamilyIntent, ProfileDraft } from "@/lib/chat"
 
 const MAX_JOBS = 5
-const FAMILY_INTENT_OPTIONS: { value: FamilyIntent; label: string }[] = [
-  { value: "soon", label: "Soon" },
-  { value: "later", label: "Later" },
-  { value: "unsure", label: "Unsure" },
-  { value: "no", label: "No" },
-]
+const FAMILY_INTENT_OPTIONS: { value: FamilyIntent; label: string }[] =
+  FAMILY_INTENT_VALUES.map((value) => ({
+    value,
+    label: FAMILY_INTENT_LABELS[value],
+  }))
 
 const EYEBROW_CLASS =
   "text-[11px] font-medium tracking-[0.22em] text-sky-200/70 uppercase"
@@ -124,7 +124,7 @@ export function CareerHistoryDialog({
             </div>
             <div className="space-y-2">
               <Label htmlFor="family-intent" className="text-slate-200">
-                Family planning intent
+                Family planning target age
               </Label>
               <select
                 id="family-intent"

@@ -3,6 +3,7 @@ import "server-only"
 import { readdir, readFile } from "node:fs/promises"
 import path from "node:path"
 
+import { familyIntentTiming } from "@/lib/chat"
 import type {
   AdvisorCitation,
   ChatMessage,
@@ -301,13 +302,20 @@ function inferThemeHints(
     }
   }
 
-  if (profile?.familyIntent === "soon" || selectedNode?.kind === "planning") {
+  if (
+    familyIntentTiming(profile?.familyIntent, profile?.age) === "soon" ||
+    selectedNode?.kind === "planning"
+  ) {
     for (const token of ["family", "leave", "support", "childcare"]) {
       hints.add(token)
     }
   }
 
   return Array.from(hints)
+}
+
+function resolveSourceUrl(source: SourceRegistryEntry | undefined) {
+  return source?.resolvedUrl ?? source?.url
 }
 
 function normalizeCuratedRecord(
@@ -338,6 +346,7 @@ function normalizeCuratedRecord(
     excerpt,
     sourceType: "curated",
     publisher: source?.publisher,
+    url: resolveSourceUrl(source),
     searchableText,
     theme: record.theme,
     allowedUsage: record.allowedUsage,
@@ -372,6 +381,7 @@ function normalizePdfSnippetRecord(
     excerpt,
     sourceType: "mom_pdf",
     publisher: source?.publisher ?? "Ministry of Manpower",
+    url: resolveSourceUrl(source),
     sourceFile: record.sourceFile,
     searchableText,
     keywordSet: buildKeywordSet([searchableText]),

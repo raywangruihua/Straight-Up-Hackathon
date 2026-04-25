@@ -2,11 +2,13 @@ import OpenAI from "openai"
 import { NextResponse } from "next/server"
 
 import { retrieveRelevantEvidence } from "@/lib/evidence"
+import { FAMILY_INTENT_VALUES, FAMILY_INTENT_LABELS } from "@/lib/chat"
 import type {
   AdvisorChatResponse,
   AdvisorCitation,
   AdvisorGroundingStatus,
   ChatMessage,
+  FamilyIntent,
   TrajectoryGraph,
   TrajectoryNode,
   UserProfile,
@@ -94,7 +96,7 @@ function isProfile(value: unknown): value is UserProfile {
     Number.isInteger(candidate.age) &&
     typeof candidate.currentJob === "string" &&
     typeof candidate.familyIntent === "string" &&
-    ["soon", "later", "unsure", "no"].includes(candidate.familyIntent)
+    (FAMILY_INTENT_VALUES as string[]).includes(candidate.familyIntent)
   )
 }
 
@@ -262,7 +264,7 @@ Grounding rules:
 Profile:
 - Age: ${profile?.age ?? "unknown"}
 - Current job: ${profile?.currentJob ?? "unknown"}
-- Family intent: ${profile?.familyIntent ?? "unknown"}
+- Family planning age range: ${profile?.familyIntent ? FAMILY_INTENT_LABELS[profile.familyIntent as FamilyIntent] : "unknown"}
 
 Constellation context:
 ${summarizeTrajectory(trajectory, selectedNode)}
@@ -327,6 +329,7 @@ export async function POST(request: Request) {
       sourceType: record.sourceType,
       publisher: record.publisher,
       sourceFile: record.sourceFile,
+      url: record.url,
     })
   )
 

@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react"
 
+import { FAMILY_INTENT_LABELS } from "@/lib/chat"
 import type {
   AdvisorChatResponse,
   AdvisorGroundingStatus,
@@ -33,7 +34,7 @@ function buildInitialMessage(
     : "Ask about the constellation as a whole or any node you open. "
 
   const profileContext = profile
-    ? `I can use your profile as context too: age ${profile.age}, ${profile.currentJob}, family intent ${profile.familyIntent}. `
+    ? `I can use your profile as context too: age ${profile.age}, ${profile.currentJob}, family target age range ${FAMILY_INTENT_LABELS[profile.familyIntent]}. `
     : ""
 
   return {
@@ -169,7 +170,7 @@ export default function AdvisorChatPanel({
   }
 
   return (
-    <aside className="absolute top-0 right-0 bottom-0 z-10 flex h-full w-full max-w-[420px] flex-col overflow-hidden border-l border-white/10 bg-slate-950/85 backdrop-blur-xl md:w-[420px]">
+    <aside className="absolute top-0 right-0 bottom-0 z-10 flex h-full w-[clamp(360px,30vw,500px)] max-w-full flex-col overflow-hidden border-l border-white/10 bg-slate-950/85 backdrop-blur-xl">
       <div className="border-b border-white/10 px-5 py-4">
         <p className="text-[11px] font-medium tracking-[0.22em] text-sky-200/70 uppercase">
           Advisor chat

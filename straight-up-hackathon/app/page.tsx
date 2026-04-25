@@ -12,7 +12,9 @@ import AdvisorChatPanel from "@/components/AdvisorChatPanel"
 import Galaxy from "@/components/Galaxy"
 import { CareerHistoryDialog } from "@/components/CareerHistoryDialog"
 import { ProfileIntakeDialog } from "@/components/ProfileIntakeDialog"
+import { SourcesDialog } from "@/components/SourcesDialog"
 import type {
+  NodeInsights,
   ProfileDraft,
   TrajectoryExpansion,
   TrajectoryGraph,
@@ -26,8 +28,12 @@ const ForceGraph3D = dynamic(() => import("react-force-graph-3d"), {
   ssr: false,
 })
 
-const NODE_DETAILS_PANEL_WIDTH = 380
-const ADVISOR_PANEL_WIDTH = 420
+const NODE_PANEL_MIN = 340
+const NODE_PANEL_VW = 0.28
+const NODE_PANEL_MAX = 460
+const ADVISOR_PANEL_MIN = 360
+const ADVISOR_PANEL_VW = 0.3
+const ADVISOR_PANEL_MAX = 500
 const PANEL_OFFSET_BREAKPOINT = 1280
 const NODE_CAMERA_Z = 450
 const FIT_VIEW_Y = 320
@@ -289,6 +295,61 @@ function getLinkTargetId(link: GraphLinkLike): string | null {
   return null
 }
 
+function fertilityRiskTone(percent: number) {
+  if (percent < 30) return "bg-emerald-300"
+  if (percent < 55) return "bg-amber-300"
+  if (percent < 75) return "bg-orange-400"
+  return "bg-rose-400"
+}
+
+type IndicatorRowProps = {
+  label: string
+  primary: string
+  bar?: number
+  barClass?: string
+  reasoning?: string
+  loading: boolean
+}
+
+function IndicatorRow({
+  label,
+  primary,
+  bar,
+  barClass,
+  reasoning,
+  loading,
+}: IndicatorRowProps) {
+  return (
+    <div className="space-y-1.5">
+      <div className="flex items-baseline justify-between gap-3">
+        <p className="text-[11px] font-medium tracking-[0.22em] text-sky-200/70 uppercase">
+          {label}
+        </p>
+        <span className="text-sm font-semibold text-white">
+          {loading ? "…" : primary}
+        </span>
+      </div>
+      {bar !== undefined ? (
+        <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+          <div
+            className={`h-full rounded-full transition-all ${
+              loading ? "w-1/3 animate-pulse bg-white/20" : barClass ?? "bg-sky-300"
+            }`}
+            style={loading ? undefined : { width: `${bar}%` }}
+          />
+        </div>
+      ) : null}
+      {!loading && reasoning ? (
+        <p className="text-xs leading-5 text-slate-400">{reasoning}</p>
+      ) : null}
+    </div>
+  )
+}
+
+function clampPanelWidth(viewportWidth: number, vw: number, min: number, max: number) {
+  return Math.max(min, Math.min(viewportWidth * vw, max))
+}
+
 function getViewportPanelWidths(hasLeftPanel: boolean, hasRightPanel: boolean) {
   if (
     typeof window === "undefined" ||
@@ -301,8 +362,22 @@ function getViewportPanelWidths(hasLeftPanel: boolean, hasRightPanel: boolean) {
   }
 
   return {
-    left: hasLeftPanel ? NODE_DETAILS_PANEL_WIDTH : 0,
-    right: hasRightPanel ? ADVISOR_PANEL_WIDTH : 0,
+    left: hasLeftPanel
+      ? clampPanelWidth(
+          window.innerWidth,
+          NODE_PANEL_VW,
+          NODE_PANEL_MIN,
+          NODE_PANEL_MAX
+        )
+      : 0,
+    right: hasRightPanel
+      ? clampPanelWidth(
+          window.innerWidth,
+          ADVISOR_PANEL_VW,
+          ADVISOR_PANEL_MIN,
+          ADVISOR_PANEL_MAX
+        )
+      : 0,
   }
 }
 
@@ -333,6 +408,12 @@ export default function Page() {
   const [expandingNodeIds, setExpandingNodeIds] = useState<string[]>([])
   const [profileDraft, setProfileDraft] =
     useState<ProfileDraft>(EMPTY_PROFILE_DRAFT)
+  const [insightsCache, setInsightsCache] = useState<Map<string, NodeInsights>>(
+    new Map()
+  )
+  const [insightLoading, setInsightLoading] = useState(false)
+  const [insightError, setInsightError] = useState<string | null>(null)
+  const [sourcesOpen, setSourcesOpen] = useState(false)
 
   const resolvedProfile = useMemo(
     () => toUserProfile(profileDraft),
@@ -378,6 +459,9 @@ export default function Page() {
   const selectedItem = selectedNodeId
     ? (nodeMap.get(selectedNodeId) ?? null)
     : null
+  const selectedInsights = selectedNodeId
+    ? (insightsCache.get(selectedNodeId) ?? null)
+    : null
   const parentItem = selectedItem
     ? (nodeMap.get(parentMap.get(selectedItem.id) ?? "") ?? null)
     : null
@@ -418,6 +502,69 @@ export default function Page() {
       setLoading(false)
     }
   }
+
+  useEffect(() => {
+    setInsightsCache(new Map())
+  }, [resolvedProfile])
+
+  useEffect(() => {
+    if (!selectedNodeId || !resolvedProfile || !trajectory) {
+      return
+    }
+    if (insightsCache.has(selectedNodeId)) {
+      setInsightLoading(false)
+      setInsightError(null)
+      return
+    }
+
+    const node = trajectory.nodes.find((item) => item.id === selectedNodeId)
+    if (!node) {
+      return
+    }
+
+    const controller = new AbortController()
+    setInsightLoading(true)
+    setInsightError(null)
+
+    fetch("/api/node-insights", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        profile: resolvedProfile,
+        trajectory,
+        selectedNode: node,
+      }),
+      signal: controller.signal,
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          const err = (await res.json().catch(() => ({}))) as {
+            error?: string
+          }
+          throw new Error(err.error ?? `Request failed (${res.status})`)
+        }
+        return (await res.json()) as NodeInsights
+      })
+      .then((data) => {
+        setInsightsCache((prev) => {
+          const next = new Map(prev)
+          next.set(selectedNodeId, data)
+          return next
+        })
+        setInsightLoading(false)
+      })
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") {
+          return
+        }
+        const message =
+          error instanceof Error ? error.message : "Failed to load insights."
+        setInsightError(message)
+        setInsightLoading(false)
+      })
+
+    return () => controller.abort()
+  }, [selectedNodeId, resolvedProfile, trajectory, insightsCache])
 
   useEffect(() => {
     if (!graphData) {
@@ -586,7 +733,7 @@ export default function Page() {
       },
     ]
 
-    if (resolvedProfile?.familyIntent) {
+    if (resolvedProfile?.familyIntent && resolvedProfile.familyIntent !== "none") {
       decisionNodes.push({
         id: `decision-family-${parentId}`,
         name: "Progress Family Planning",
@@ -773,10 +920,10 @@ export default function Page() {
         />
       ) : null}
       {selectedItem && (
-        <aside className="absolute top-0 left-0 z-10 flex h-full w-[380px] flex-col gap-6 border-r border-white/10 bg-gradient-to-b from-slate-950/90 via-slate-900/80 to-slate-950/90 px-7 py-8 backdrop-blur-xl">
+        <aside className="absolute top-0 left-0 z-10 flex h-full w-[clamp(340px,28vw,460px)] flex-col gap-6 border-r border-white/10 bg-gradient-to-b from-slate-950/90 via-slate-900/80 to-slate-950/90 px-7 py-8 backdrop-blur-xl">
           <button
             onClick={handleBackReset}
-            className="h-9 self-start rounded-xl border border-white/15 bg-white/5 px-3.5 text-[11px] font-medium tracking-[0.22em] text-slate-200 uppercase transition-colors hover:bg-white/10"
+            className="h-12 self-start rounded-xl border border-white/15 bg-white/5 px-5 text-xs font-medium tracking-[0.22em] text-slate-200 uppercase transition-colors hover:bg-white/10"
           >
             Reset view
           </button>
@@ -791,6 +938,53 @@ export default function Page() {
             <h2 className="text-xl leading-tight font-semibold text-white">
               {selectedItem.name}
             </h2>
+          </div>
+          <div className="space-y-4 rounded-xl border border-white/10 bg-white/5 px-4 py-4">
+            <IndicatorRow
+              label="Age"
+              primary={
+                selectedInsights
+                  ? `${selectedInsights.ageEstimate.value} yrs`
+                  : "—"
+              }
+              reasoning={selectedInsights?.ageEstimate.reasoning}
+              loading={insightLoading && !selectedInsights}
+            />
+            <IndicatorRow
+              label="Fertility risk"
+              primary={
+                selectedInsights
+                  ? `${Math.round(selectedInsights.fertilityRisk.value)}%`
+                  : "—"
+              }
+              bar={selectedInsights?.fertilityRisk.value ?? 0}
+              barClass={
+                selectedInsights
+                  ? fertilityRiskTone(selectedInsights.fertilityRisk.value)
+                  : undefined
+              }
+              reasoning={selectedInsights?.fertilityRisk.reasoning}
+              loading={insightLoading && !selectedInsights}
+            />
+            <IndicatorRow
+              label="Career progression"
+              primary={
+                selectedInsights
+                  ? `${Math.round(selectedInsights.careerProgression.value)}%`
+                  : "—"
+              }
+              bar={selectedInsights?.careerProgression.value ?? 0}
+              reasoning={selectedInsights?.careerProgression.reasoning}
+              loading={insightLoading && !selectedInsights}
+            />
+            {insightError && !selectedInsights ? (
+              <p className="text-xs leading-5 text-rose-200">{insightError}</p>
+            ) : null}
+            {!resolvedProfile ? (
+              <p className="text-xs leading-5 text-slate-400">
+                Complete your profile to compute these indicators.
+              </p>
+            ) : null}
           </div>
           {childItems.length > 0 && (
             <div className="space-y-2 rounded-xl border border-sky-300/25 bg-sky-300/10 px-4 py-4">
@@ -859,8 +1053,23 @@ export default function Page() {
               </p>
             </div>
           )}
+          <button
+            onClick={() => setSourcesOpen(true)}
+            disabled={!selectedInsights}
+            className="mt-auto h-12 w-full rounded-xl border border-white/15 bg-white/5 px-5 text-base font-semibold text-slate-100 transition-colors hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            View sources
+            {selectedInsights
+              ? ` (${selectedInsights.citations.length})`
+              : ""}
+          </button>
         </aside>
       )}
+      <SourcesDialog
+        open={sourcesOpen}
+        onOpenChange={setSourcesOpen}
+        citations={selectedInsights?.citations ?? []}
+      />
     </div>
   )
 }

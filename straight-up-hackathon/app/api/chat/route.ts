@@ -1,6 +1,7 @@
 import OpenAI from "openai"
 import { NextResponse } from "next/server"
 
+import { FAMILY_INTENT_VALUES } from "@/lib/chat"
 import type { ChatMessage, UserProfile } from "@/lib/chat"
 
 const MODEL = process.env.OPENAI_MODEL ?? "gpt-4o-mini"
@@ -9,8 +10,12 @@ const systemPrompt = `
 You are a supportive planning assistant for a life-design product.
 
 Your goals:
-- Gather three profile fields: age, current job, and family intent.
-- Family intent must be one of: soon, later, unsure, no.
+- Gather three profile fields: age, current job, and family planning age range.
+- Family planning age range is the age window the user is targeting to start a family,
+  and must be exactly one of: "under-25", "25-29", "30-34", "35-39", "40-44", "45-plus", "none".
+  Use "none" only if the user clearly says they do not plan to have children.
+- If the user is unsure about timing, ask which 5-year window feels closest, and only
+  fall back to "none" if they truly do not plan to.
 - Ask only for the missing information.
 - Keep replies concise, warm, and empowering.
 - Avoid fear-based framing.
@@ -47,9 +52,17 @@ const responseSchema = {
               },
               familyIntent: {
                 type: "string",
-                enum: ["soon", "later", "unsure", "no"],
+                enum: [
+                  "under-25",
+                  "25-29",
+                  "30-34",
+                  "35-39",
+                  "40-44",
+                  "45-plus",
+                  "none",
+                ],
                 description:
-                  "Whether the user wants to start a family soon, later, is unsure, or does not want children.",
+                  "The 5-year age window the user is targeting to start a family, or 'none' if they do not plan to have children.",
               },
             },
             required: ["age", "currentJob", "familyIntent"],
@@ -116,7 +129,7 @@ function isProfile(value: unknown): value is UserProfile {
     Number.isInteger(candidate.age) &&
     typeof candidate.currentJob === "string" &&
     typeof familyIntent === "string" &&
-    ["soon", "later", "unsure", "no"].includes(familyIntent)
+    (FAMILY_INTENT_VALUES as string[]).includes(familyIntent)
   )
 }
 

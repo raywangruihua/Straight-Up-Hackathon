@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useRef, useState } from "react"
 
+import { FAMILY_INTENT_LABELS } from "@/lib/chat"
 import type { ChatMessage, ChatResponse, UserProfile } from "@/lib/chat"
 
 type ChatPanelProps = {
@@ -132,8 +133,8 @@ export default function ChatPanel({
           <div className="mb-4 rounded-xl border border-emerald-300/25 bg-emerald-300/10 px-4 py-3 text-sm text-emerald-50">
             <p className="font-medium">Structured profile captured</p>
             <p className="mt-1 text-emerald-100/85">
-              Age {profile.age}, {profile.currentJob}, family intent:{" "}
-              {profile.familyIntent}
+              Age {profile.age}, {profile.currentJob}, family target age:{" "}
+              {FAMILY_INTENT_LABELS[profile.familyIntent]}
             </p>
           </div>
         ) : null}

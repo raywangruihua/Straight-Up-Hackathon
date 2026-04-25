@@ -7,7 +7,52 @@ from predictor import Predictor
 DEFAULT_HOST = "127.0.0.1"
 DEFAULT_PORT = 5000
 DEFAULT_STEPS = 3
-VALID_FAMILY_INTENTS = {"soon", "later", "unsure", "no"}
+
+# Family planning is now captured as a 5-year target age window, plus "none".
+# We keep the field name `family_intent` but the values are age-range strings.
+VALID_FAMILY_INTENTS = {
+    "under-25",
+    "25-29",
+    "30-34",
+    "35-39",
+    "40-44",
+    "45-plus",
+    "none",
+}
+
+# Inclusive (lower, upper) age windows for each intent. `None` for "none" means
+# the user does not plan to start a family.
+FAMILY_INTENT_RANGES: dict[str, tuple[int, int] | None] = {
+    "under-25": (0, 24),
+    "25-29": (25, 29),
+    "30-34": (30, 34),
+    "35-39": (35, 39),
+    "40-44": (40, 44),
+    "45-plus": (45, 99),
+    "none": None,
+}
+
+
+def family_intent_semantic(family_intent, age):
+    """Translate the age-range family intent into the legacy
+    soon/later/unsure/no semantic that the prediction helpers below already
+    understand. Lets the rest of this file keep its existing branching."""
+    if family_intent == "none":
+        return "no"
+    window = FAMILY_INTENT_RANGES.get(family_intent) if family_intent else None
+    if window is None:
+        return None
+    target_low, target_high = window
+    if not isinstance(age, int):
+        return "unsure"
+    if age > target_high:
+        return "unsure"
+    distance = max(0, target_low - age)
+    if distance <= 5:
+        return "soon"
+    if distance <= 15:
+        return "later"
+    return "unsure"
 
 
 def serialize_history(history: list[str]) -> str:
@@ -17,16 +62,29 @@ def serialize_history(history: list[str]) -> str:
 
 def normalize_profile(raw_profile: object) -> dict[str, object]:
     if not isinstance(raw_profile, dict):
-        return {"age": None, "current_job": "", "family_intent": None}
+        return {
+            "age": None,
+            "current_job": "",
+            "family_intent": None,
+            "family_intent_semantic": None,
+        }
 
     age = raw_profile.get("age")
     current_job = raw_profile.get("currentJob")
     family_intent = raw_profile.get("familyIntent")
 
+    normalized_age = age if isinstance(age, int) and age >= 0 else None
+    normalized_intent = (
+        family_intent if family_intent in VALID_FAMILY_INTENTS else None
+    )
+
     return {
-        "age": age if isinstance(age, int) and age >= 0 else None,
+        "age": normalized_age,
         "current_job": current_job.strip() if isinstance(current_job, str) else "",
-        "family_intent": family_intent if family_intent in VALID_FAMILY_INTENTS else None,
+        "family_intent": normalized_intent,
+        "family_intent_semantic": family_intent_semantic(
+            normalized_intent, normalized_age
+        ),
     }
 
 
@@ -44,14 +102,14 @@ def derive_prediction_steps(requested_steps: object, profile: dict[str, object])
     steps = requested_steps if isinstance(requested_steps, int) else DEFAULT_STEPS
     steps = max(2, min(steps, 5))
 
-    family_intent = profile.get("family_intent")
+    semantic = profile.get("family_intent_semantic")
     age = profile.get("age")
 
-    if family_intent == "soon":
+    if semantic == "soon":
         return min(steps, 2 if isinstance(age, int) and age >= 30 else 3)
-    if family_intent == "no":
+    if semantic == "no":
         return min(5, steps + 1)
-    if family_intent == "later" and isinstance(age, int) and age < 30:
+    if semantic == "later" and isinstance(age, int) and age < 30:
         return min(5, steps + 1)
 
     return steps
@@ -60,7 +118,7 @@ def derive_prediction_steps(requested_steps: object, profile: dict[str, object])
 def build_prediction_query(history: list[str], profile: dict[str, object]) -> str:
     query = serialize_history(history)
     age = profile.get("age")
-    family_intent = profile.get("family_intent")
+    semantic = profile.get("family_intent_semantic")
 
     stage_hint = ""
     if isinstance(age, int):
@@ -74,11 +132,11 @@ def build_prediction_query(history: list[str], profile: dict[str, object]) -> st
     context_parts = []
     if stage_hint:
         context_parts.append(stage_hint)
-    if family_intent == "soon":
+    if semantic == "soon":
         context_parts.append("family planning soon")
-    elif family_intent == "later":
+    elif semantic == "later":
         context_parts.append("family planning later")
-    elif family_intent == "no":
+    elif semantic == "no":
         context_parts.append("career growth focus")
 
     if not context_parts:
@@ -88,10 +146,10 @@ def build_prediction_query(history: list[str], profile: dict[str, object]) -> st
 
 
 def build_profile_milestone(profile: dict[str, object]) -> dict[str, str] | None:
-    family_intent = profile.get("family_intent")
+    semantic = profile.get("family_intent_semantic")
     current_job = str(profile.get("current_job") or "your current role").strip() or "your current role"
 
-    if family_intent == "soon":
+    if semantic == "soon":
         return {
             "name": "Family Planning & Re-entry",
             "description": (
@@ -99,21 +157,21 @@ def build_profile_milestone(profile: dict[str, object]) -> dict[str, str] | None
                 f"need to plan leave coverage, skill continuity, and a confident re-entry path from {current_job}."
             ),
         }
-    if family_intent == "later":
+    if semantic == "later":
         return {
             "name": "Career Runway Before Family",
             "description": (
                 f"This scenario assumes some runway to build momentum from {current_job} before a later family-planning pivot."
             ),
         }
-    if family_intent == "unsure":
+    if semantic == "unsure":
         return {
             "name": "Flexibility Checkpoint",
             "description": (
                 f"This waypoint keeps optionality open by balancing growth from {current_job} with roles that may be easier to pause and re-enter."
             ),
         }
-    if family_intent == "no":
+    if semantic == "no":
         return {
             "name": "Career Acceleration Window",
             "description": (
@@ -131,7 +189,7 @@ def inject_profile_milestone(
     if milestone is None:
         return trajectory
 
-    insert_at = 1 if profile.get("family_intent") in {"soon", "unsure"} else min(2, len(trajectory))
+    insert_at = 1 if profile.get("family_intent_semantic") in {"soon", "unsure"} else min(2, len(trajectory))
     return trajectory[:insert_at] + [milestone] + trajectory[insert_at:]
 
 
